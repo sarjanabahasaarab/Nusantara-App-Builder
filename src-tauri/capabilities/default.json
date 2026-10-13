@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schema.tauri.app/config/2/capability",
+  "identifier": "default",
+  "description": "Minimal safe permissions for Nusantara App Builder IDE",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "fs:default",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "fs:allow-mkdir",
+    "fs:allow-remove",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save"
+  ]
+}

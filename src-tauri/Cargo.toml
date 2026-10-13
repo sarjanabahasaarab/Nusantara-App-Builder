@@ -1,0 +1,29 @@
+[package]
+name = "nusantara-app-builder"
+version = "0.1.0"
+description = "Nusantara App Builder — Windows Desktop IDE for Android Development"
+edition = "2021"
+authors = ["Nusantara App Builder Contributors"]
+license = "MIT"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0.0", features = ["tray-icon"] }
+tauri-plugin-fs = "2.0.0"
+tauri-plugin-shell = "2.0.0"
+tauri-plugin-dialog = "2.0.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+regex = "1.10"
+dirs = "5.0"
+thiserror = "1.0"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
