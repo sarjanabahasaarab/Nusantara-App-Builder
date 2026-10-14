@@ -15,9 +15,11 @@ import {
 import { EnvironmentStatus } from '../../types/settings';
 import { generateProjectFiles } from '../project-manager/templateGenerator';
 import { COMPATIBLE_TOOLCHAIN } from '../project-manager/templates/commonAndroidFiles';
+import { VisualProjectDesign } from '../../types/visualDesigner';
 
 const STORAGE_PROJECTS_KEY = 'nusantara_projects_index';
 const STORAGE_FILES_PREFIX = 'nusantara_project_files_';
+const STORAGE_DESIGN_PREFIX = 'nusantara_visual_design_';
 
 // Check if running under Tauri runtime
 export function isTauriEnvironment(): boolean {
@@ -148,8 +150,67 @@ export class NativeBridge {
     await this.removeRecentProject(projectId);
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem(`${STORAGE_FILES_PREFIX}${projectId}`);
+      localStorage.removeItem(`${STORAGE_DESIGN_PREFIX}${projectId}`);
     }
     return true;
+  }
+
+  /**
+   * Saves visual design data for a project
+   */
+  static async saveVisualDesign(projectId: string, design: VisualProjectDesign): Promise<void> {
+    if (typeof localStorage === 'undefined') return;
+    try {
+      localStorage.setItem(`${STORAGE_DESIGN_PREFIX}${projectId}`, JSON.stringify(design));
+    } catch (err) {
+      console.error('Failed to save visual design:', err);
+      throw new Error('Gagal menyimpan berkas desain visual ke penyimpanan proyek');
+    }
+  }
+
+  /**
+   * Loads visual design data for a project
+   */
+  static async loadVisualDesign(projectId: string): Promise<VisualProjectDesign | null> {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(`${STORAGE_DESIGN_PREFIX}${projectId}`);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (err) {
+      console.error('Failed to load visual design:', err);
+      return null;
+    }
+  }
+
+  /**
+   * Saves generated Android XML Layout directly into the project's virtual/native file tree
+   */
+  static async saveGeneratedLayoutXml(
+    projectId: string,
+    relativePath: string,
+    xmlContent: string
+  ): Promise<string> {
+    const files = await this.getProjectFiles(projectId);
+    const existingIndex = files.findIndex((f) => f.path === relativePath);
+    const fileName = relativePath.split('/').pop() || 'layout.xml';
+
+    if (existingIndex >= 0) {
+      files[existingIndex].content = xmlContent;
+    } else {
+      files.push({
+        path: relativePath,
+        name: fileName,
+        content: xmlContent,
+        isDirectory: false,
+      });
+    }
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(`${STORAGE_FILES_PREFIX}${projectId}`, JSON.stringify(files));
+    }
+
+    return relativePath;
   }
 
   /**

@@ -21,6 +21,7 @@ import {
   Terminal,
   RefreshCw,
   Info,
+  Palette,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useProjectStore } from '../../store/projectStore';
@@ -140,6 +141,17 @@ export const ProjectDetailView: React.FC = () => {
 
         {/* Phase 2 Action Buttons */}
         <div className="flex items-center gap-2">
+          {/* Validate Project Button */}
+          {/* Visual Designer Button */}
+          <button
+            onClick={() => setActiveView('visual-designer')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+            title={lang === 'id' ? 'Buka di Visual Designer' : 'Open in Visual Designer'}
+          >
+            <Palette className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{lang === 'id' ? 'Visual Designer' : 'Visual Designer'}</span>
+          </button>
+
           {/* Validate Project Button */}
           <button
             onClick={handleValidate}

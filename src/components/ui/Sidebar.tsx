@@ -51,8 +51,6 @@ export const Sidebar: React.FC = () => {
       id: 'visual-designer',
       label: t.sidebar.visualDesigner,
       icon: Palette,
-      isComingSoon: true,
-      phase: 2,
     },
     {
       id: 'code-editor',

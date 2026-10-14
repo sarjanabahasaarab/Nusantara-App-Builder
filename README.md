@@ -11,23 +11,17 @@
 
 **Nusantara App Builder** adalah Integrated Development Environment (IDE) desktop Windows sumber terbuka (open-source) yang dirancang untuk menyederhanakan perancangan dan pembangunan aplikasi Android. Fondasi IDE ini dibangun menggunakan arsitektur modern **Tauri 2.x (Rust)**, **React 19**, **TypeScript Strict Mode**, **Tailwind CSS**, dan **Zustand**.
 
-#### Fitur Utama Phase 1 (Fondasi Terbuka):
-- **Antarmuka Desktop Windows Lengkap**: Title bar kustom, menu bar fungsional (File, Edit, View, Project, Tools, Window, Help), toolbar aksi cepat, sidebar navigasi responsif, dan status bar detil.
-- **Dukungan Bilingual Penuh**: Terjemahan lengkap Bahasa Indonesia dan English untuk setiap menu, label, deskripsi, pesan validasi, dan notifikasi.
-- **Tema Terang & Gelap**: Pengalihan tema seketika dengan persistensi preferensi lokal.
-- **Dasbor Manajemen Proyek**: Ringkasan metrik proyek, riwayat proyek terbaru, pencarian instan, dan panduan memulai awal.
-- **Wizard Pembuatan Proyek Android Nyata**:
-  - Validasi ketat nama proyek (termasuk deteksi nama terlarang sistem Windows seperti `CON`, `PRN`, `AUX`).
-  - Validasi format Java/Android Package ID (reverse-domain notation, larangan kata kunci reserved Java).
-  - Generator berkas Kotlin 2.0, Android Gradle Plugin 8.5 (`build.gradle.kts`), `AndroidManifest.xml`, dan layout XML nyata.
-- **3 Template Android Bawaan**:
-  1. *Empty Android Project*: Fondasi Gradle murni dengan Activity minimalis.
-  2. *Basic Activity*: Material 3 TopAppBar, Floating Action Button, dan ViewModel.
-  3. *WebView Starter*: WebView berakselerasi tinggi, offline caching, dan penanganan koneksi.
-- **Penyimpanan Proyek Aman**:
-  - Pemisahan tegas antara "Hapus dari Riwayat" (hanya menghapus catatan riwayat tanpa menyentuh berkas fisik) dan "Hapus Folder Fisik" (memerlukan konfirmasi nama proyek).
-- **Inspeksi Status Lingkungan Toolchain**: Deteksi dan validasi jalur Android SDK (API 34), Java JDK (17/21), dan Gradle.
-- **Kontrak Layanan Formal (Phase 2–7)**: Spesifikasi antarmuka TypeScript yang transparan untuk Visual Designer, Code Editor, Website to APK, Build Engine, dan Google AdMob.
+#### Fitur Utama yang Telah Selesai:
+- **Phase 1: Open Source Foundation**: Antarmuka desktop Windows lengkap, custom TitleBar, MenuBar fungsional, Action Toolbar, Sidebar responsif, StatusBar, dukungan bilingual (ID/EN), tema Terang & Gelap, dan penyimpanan preferensi lokal.
+- **Phase 2: Android Project Engine**: Generator struktur proyek Android native (Gradle Wrapper 8.7, Kotlin 2.0, AGP 8.5, Android SDK 34), detektor lingkungan toolchain (SDK, ADB, JDK, Gradle), dan runner tugas Gradle yang dibatasi.
+- **Phase 3: Visual Designer (WYSIWYG Layout Engine)**:
+  - **Component Palette**: 18 komponen Android dalam 5 kategori (Layout, Typography, Inputs, Media, Utility) dengan pencarian instan dan drag-and-drop.
+  - **Phone Canvas**: Kanvas ponsel interaktif dengan bezel realistis, Status Bar, App Bar, rotasi potret/lanskap, preset perangkat (Pixel 7, Galaxy S23, Tablet), dan zoom 50%–200%.
+  - **Properties Panel**: Inspektur properti 3 tab (Spesifik, Tata Letak, Umum) dengan validasi ID unik Android.
+  - **State Machine & Undo/Redo**: Riwayat hingga 30 aksi untuk penambahan, penghapusan, duplikasi, dan pergerakan komponen.
+  - **Multi-Screen Manager**: Pengelolaan banyak layar, penggantian nama, duplikasi, penentuan layar awal (*launcher*).
+  - **Android XML Generator**: Pembangkitan layout Android XML standar dan penyimpanan otomatis langsung ke `app/src/main/res/layout/`.
+  - **Interactive Preview Simulator**: Uji coba interaktif tombol, input teks, dan toggle tanpa keluar dari editor.
 
 ---
 
@@ -35,16 +29,17 @@
 
 **Nusantara App Builder** is an open-source Windows desktop Integrated Development Environment (IDE) designed to streamline Android app development. Built on **Tauri 2.x (Rust)**, **React 19**, **TypeScript Strict Mode**, **Tailwind CSS**, and **Zustand**.
 
-#### Phase 1 Key Features (Foundation):
-- **Professional Windows Desktop Interface**: Custom title bar, comprehensive menu bar, action toolbar, collapsible sidebar, and bottom status bar.
-- **Full Bilingual Support**: Complete Indonesian and English localization across all UI elements, validation errors, and messages.
-- **Dark & Light Modes**: Instant theme toggle with local preference persistence.
-- **Project Dashboard**: Quick action cards, project metrics, recent project list with instant search, and step-by-step onboarding guide.
-- **Real Android Project Generator**: Generates actual buildable Gradle Kotlin DSL scripts, AndroidManifest.xml, strings, colors, themes, and MainActivity.kt.
-- **3 Built-in Templates**: Empty Android Project, Basic Activity (Material 3), and WebView Starter.
-- **Safe Project Storage**: Strict distinction between removing from recent history and permanent disk folder deletion.
-- **Android Toolchain Detector**: Validates Android SDK 34, JDK 17/21, and Gradle wrapper.
-- **Architectural Service Contracts**: Formal TypeScript interfaces prepared for Phases 2–7.
+#### Completed Key Features:
+- **Phase 1: Open Source Foundation**: Professional Windows desktop interface, custom title bar, comprehensive menu bar, action toolbar, collapsible sidebar, bilingual support, dark/light modes.
+- **Phase 2: Android Project Engine**: Real Android project generator (Gradle Wrapper 8.7, Kotlin 2.0, AGP 8.5, Android SDK 34), toolchain diagnostics, and safe restricted Gradle process runner.
+- **Phase 3: Visual Designer (WYSIWYG Layout Engine)**:
+  - **Component Palette**: 18 Android components across 5 categories with drag-and-drop & instant search.
+  - **Phone Canvas**: Realistic phone bezel, status bar, app bar, orientation toggle, device presets, and zoom.
+  - **Properties Panel**: 3-tab inspector (Specific, Layout, General) with live Android ID validation.
+  - **State Machine & Undo/Redo**: 30-step history stack for mutations.
+  - **Multi-Screen Manager**: Manage multiple Android screens and designate launcher screens.
+  - **Android XML Generator**: Production-ready Android XML layout generation synchronized with `app/src/main/res/layout/`.
+  - **Interactive Preview Simulator**: Live interactive testing without leaving the IDE.
 
 ---
 
