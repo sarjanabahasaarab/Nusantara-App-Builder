@@ -1,6 +1,6 @@
 /**
  * Nusantara App Builder - Project Types
- * Phase 1: Open Source Foundation
+ * Phase 2: Android Project Engine & Generator
  */
 
 export type ProjectTemplateId = 'empty-android' | 'basic-activity' | 'webview-starter';
@@ -13,6 +13,7 @@ export interface ProjectTemplate {
   descriptionId: string;
   minSdk: number;
   targetSdk: number;
+  compileSdk: number;
   features: string[];
   featuresId: string[];
 }
@@ -23,16 +24,18 @@ export interface ProjectFile {
   content: string;
   isDirectory?: boolean;
   size?: number;
+  isExecutable?: boolean;
 }
 
 export interface ProjectMetadata {
   id: string;
   name: string;
+  displayName: string;
   packageId: string;
   location: string;
   description: string;
   template: ProjectTemplateId;
-  language: 'kotlin' | 'java';
+  language: 'kotlin';
   interfaceLanguage: 'id' | 'en';
   createdAt: string;
   updatedAt: string;
@@ -41,23 +44,46 @@ export interface ProjectMetadata {
   compileSdk: number;
   versionCode: number;
   versionName: string;
+  targetUrl?: string; // For webview starter
+  formatVersion: '2.0';
   filesCount: number;
+  toolchainVersion?: {
+    agp: string;
+    gradle: string;
+    kotlin: string;
+    jdk: string;
+  };
 }
 
 export interface CreateProjectInput {
   name: string;
+  displayName?: string;
   packageId: string;
   location: string;
-  description: string;
+  description?: string;
   template: ProjectTemplateId;
-  interfaceLanguage: 'id' | 'en';
+  versionCode?: number;
+  versionName?: string;
   minSdk?: number;
   targetSdk?: number;
   compileSdk?: number;
+  targetUrl?: string;
+  interfaceLanguage: 'id' | 'en';
+  allowOverwrite?: boolean;
 }
 
 export interface ValidationError {
-  field: 'name' | 'packageId' | 'location' | 'description' | 'template' | 'general';
+  field:
+    | 'name'
+    | 'displayName'
+    | 'packageId'
+    | 'location'
+    | 'description'
+    | 'template'
+    | 'versionCode'
+    | 'versionName'
+    | 'targetUrl'
+    | 'general';
   message: string;
   messageId: string;
 }
@@ -65,4 +91,40 @@ export interface ValidationError {
 export interface ValidationResult {
   isValid: boolean;
   errors: ValidationError[];
+}
+
+export interface ProjectIntegrityIssue {
+  severity: 'error' | 'warning' | 'info';
+  file?: string;
+  message: string;
+  messageId: string;
+}
+
+export interface ProjectValidationReport {
+  timestamp: string;
+  isValid: boolean;
+  checkedFilesCount: number;
+  issues: ProjectIntegrityIssue[];
+  gradleConfigSummary: {
+    namespace: string;
+    compileSdk: number;
+    minSdk: number;
+    targetSdk: number;
+    versionCode: number;
+    versionName: string;
+    hasViewBinding: boolean;
+    hasGradleWrapper: boolean;
+  };
+}
+
+export interface BuildProcessOutput {
+  status: 'idle' | 'running' | 'success' | 'failed' | 'cancelled';
+  task: string;
+  startTime?: string;
+  endTime?: string;
+  durationMs?: number;
+  exitCode?: number;
+  logs: string[];
+  errorSummary?: string;
+  artifactPath?: string;
 }

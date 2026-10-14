@@ -11,7 +11,9 @@ pub fn run() {
             commands::detect_android_sdk,
             commands::detect_jdk,
             commands::create_project_directory,
-            commands::delete_project_directory_permanently
+            commands::delete_project_directory_permanently,
+            commands::write_project_metadata_atomic,
+            commands::run_gradle_task
         ])
         .run(tauri::generate_context!())
         .expect("Gagal menjalankan aplikasi Nusantara App Builder");

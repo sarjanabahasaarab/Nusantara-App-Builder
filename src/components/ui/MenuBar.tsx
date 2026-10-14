@@ -245,6 +245,34 @@ export const MenuBar: React.FC = () => {
             >
               <span>{t.menu.projectSettings}</span>
             </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('project-detail');
+                useProjectStore.getState().validateCurrentProject();
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject
+                  ? 'hover:bg-blue-600 hover:text-white cursor-pointer'
+                  : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>{t.menu.validateProject}</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('project-detail');
+                useProjectStore.getState().runDebugBuild();
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject
+                  ? 'hover:bg-blue-600 hover:text-white cursor-pointer'
+                  : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>{t.menu.buildDebug}</span>
+            </button>
             <div className="border-t border-neutral-800 my-1" />
             <button
               disabled={!activeProject}

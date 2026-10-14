@@ -151,10 +151,10 @@ export const MyProjectsView: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-sm text-neutral-100 hover:text-blue-400 cursor-pointer" onClick={() => handleOpen(p)}>
-                        {p.name}
+                        {p.displayName || p.name}
                       </h3>
                       <div className="text-[11px] font-mono text-neutral-400 truncate max-w-[180px]">
-                        {p.packageId}
+                        {p.packageId} · <span className="text-neutral-400">{p.name}</span>
                       </div>
                     </div>
                   </div>
@@ -168,6 +168,10 @@ export const MyProjectsView: React.FC = () => {
                   <div className="flex justify-between">
                     <span>Template:</span>
                     <span className="text-neutral-300">{p.template}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Versi:</span>
+                    <span className="text-blue-400">v{p.versionName || '1.0.0'} (code: {p.versionCode || 1})</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Berkas Sumber:</span>

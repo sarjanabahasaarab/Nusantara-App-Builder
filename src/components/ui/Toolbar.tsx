@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   AlertTriangle,
+  Play,
 } from 'lucide-react';
 import { useTranslation } from '../../modules/localization/useTranslation';
 import { useUiStore } from '../../store/uiStore';
@@ -92,6 +93,34 @@ export const Toolbar: React.FC = () => {
           <Save className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">{t.toolbar.save}</span>
         </button>
+
+        {activeProject && (
+          <>
+            <div className="h-4 w-[1px] bg-neutral-800 mx-1" />
+            <button
+              onClick={() => {
+                setActiveView('project-detail');
+                useProjectStore.getState().validateCurrentProject();
+              }}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-200 transition-colors cursor-pointer text-xs"
+              title={t.toolbar.validate}
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+              <span className="hidden md:inline">{t.toolbar.validate}</span>
+            </button>
+            <button
+              onClick={() => {
+                setActiveView('project-detail');
+                useProjectStore.getState().runDebugBuild();
+              }}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white transition-colors cursor-pointer text-xs font-medium shadow-xs"
+              title={t.toolbar.buildDebug}
+            >
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span className="hidden md:inline">{t.toolbar.buildDebug}</span>
+            </button>
+          </>
+        )}
       </div>
 
       {/* Right zone: System toggles & Settings */}

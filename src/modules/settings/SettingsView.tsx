@@ -372,7 +372,7 @@ export const SettingsView: React.FC = () => {
                       {t.settings.androidSdkPath}
                     </label>
                     <span className="text-[11px] font-mono">
-                      {envStatus.components.androidSdk.isAvailable ? (
+                      {envStatus.components.androidSdk.status === 'installed' ? (
                         <span className="text-emerald-400 flex items-center gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5" /> {t.settings.statusDetected}
                         </span>
@@ -401,7 +401,7 @@ export const SettingsView: React.FC = () => {
                       {t.settings.jdkPath}
                     </label>
                     <span className="text-[11px] font-mono">
-                      {envStatus.components.jdk.isAvailable ? (
+                      {envStatus.components.jdk.status === 'installed' ? (
                         <span className="text-emerald-400 flex items-center gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5" /> {t.settings.statusDetected}
                         </span>

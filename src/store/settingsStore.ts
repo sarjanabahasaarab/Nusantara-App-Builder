@@ -1,10 +1,11 @@
 /**
  * Nusantara App Builder - Settings Store
- * Zustand store with localStorage persistence and theme/language reactivity.
+ * Zustand store with localStorage persistence, Phase 2 toolchain versions, and theme/language reactivity.
  */
 
 import { create } from 'zustand';
 import { AppSettings, ThemeMode, LanguageCode } from '../types/settings';
+import { COMPATIBLE_TOOLCHAIN } from '../modules/project-manager/templates/commonAndroidFiles';
 
 const STORAGE_KEY = 'nusantara_app_builder_settings';
 
@@ -27,19 +28,25 @@ const defaultSettings: AppSettings = {
   projectDefaults: {
     defaultPackagePrefix: 'com.nusantara',
     defaultTemplate: 'empty-android',
-    defaultCompileSdk: 34,
-    defaultMinSdk: 26,
+    defaultCompileSdk: COMPATIBLE_TOOLCHAIN.compileSdk,
+    defaultMinSdk: COMPATIBLE_TOOLCHAIN.minSdk,
+    defaultVersionName: '1.0.0',
+    defaultVersionCode: 1,
   },
   toolchain: {
     androidSdkPath: 'C:\\Users\\Developer\\AppData\\Local\\Android\\Sdk',
     jdkPath: 'C:\\Program Files\\Java\\jdk-17',
     gradlePath: '',
     autoDetect: true,
+    compatibleAgpVersion: COMPATIBLE_TOOLCHAIN.agpVersion,
+    compatibleGradleVersion: COMPATIBLE_TOOLCHAIN.gradleVersion,
+    compatibleKotlinVersion: COMPATIBLE_TOOLCHAIN.kotlinVersion,
+    compatibleJdkVersion: COMPATIBLE_TOOLCHAIN.jdkVersion,
   },
 };
 
 function loadStoredSettings(): AppSettings {
-  if (typeof window === 'undefined') return defaultSettings;
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return defaultSettings;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultSettings;
@@ -63,7 +70,7 @@ function applyThemeToDocument(theme: ThemeMode) {
   const root = document.documentElement;
   const isDark =
     theme === 'dark' ||
-    (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    (theme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   if (isDark) {
     root.classList.add('dark');

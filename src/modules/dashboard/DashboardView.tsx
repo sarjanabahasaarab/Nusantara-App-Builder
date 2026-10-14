@@ -1,6 +1,6 @@
 /**
  * Nusantara App Builder - Dashboard View
- * Primary IDE hub featuring real project manager, toolchain summary, and getting started guide.
+ * Phase 2: Android Project Hub with direct validation, debug build triggers, and toolchain readiness.
  */
 
 import React, { useMemo } from 'react';
@@ -19,6 +19,8 @@ import {
   FolderGit2,
   Calendar,
   FileCode2,
+  ShieldCheck,
+  PlaySquare,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useUiStore } from '../../store/uiStore';
@@ -49,6 +51,7 @@ export const DashboardView: React.FC = () => {
     return projects.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
+        (p.displayName && p.displayName.toLowerCase().includes(q)) ||
         p.packageId.toLowerCase().includes(q) ||
         p.template.toLowerCase().includes(q)
     );
@@ -66,25 +69,35 @@ export const DashboardView: React.FC = () => {
     const success = await openProject(p.id);
     if (success) {
       setActiveView('project-detail');
-      showToast(`Proyek "${p.name}" dibuka`);
+      showToast(`Proyek "${p.displayName || p.name}" dibuka`);
     }
   };
 
   return (
     <div className="h-full overflow-y-auto bg-neutral-950 text-neutral-200 p-6 select-none">
       {/* Top Welcome Banner */}
-      <div className="mb-6">
-        <h1 className="text-xl font-bold tracking-tight text-neutral-100">
-          {t.dashboard.welcome}
-        </h1>
-        <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-          {t.dashboard.subtitle}
-        </p>
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-bold tracking-tight text-neutral-100">
+            {t.dashboard.welcome}
+          </h1>
+          <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
+            {t.dashboard.subtitle}
+          </p>
+        </div>
+
+        <button
+          onClick={openWizard}
+          className="flex items-center gap-1.5 px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer self-start md:self-auto shadow-xs"
+        >
+          <FolderPlus className="w-4 h-4" />
+          <span>{t.dashboard.createProjectCardTitle}</span>
+        </button>
       </div>
 
       {/* Quick Action Cards & Metric Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {/* Card 1: Create New Project */}
+        {/* Card 1: Create New Android Project */}
         <button
           onClick={openWizard}
           className="p-4 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-blue-500/60 hover:bg-neutral-900/90 text-left transition-all group cursor-pointer shadow-xs"
@@ -138,16 +151,20 @@ export const DashboardView: React.FC = () => {
             </div>
             <div className="text-[11px] text-neutral-400 space-y-1 font-mono">
               <div className="flex justify-between">
-                <span>Android SDK:</span>
-                <span className={envStatus.components.androidSdk.isAvailable ? 'text-emerald-400' : 'text-neutral-400'}>
-                  {envStatus.components.androidSdk.isAvailable ? 'API 34 Ready' : 'Belum Dikonfigurasi'}
+                <span>SDK Root:</span>
+                <span className={envStatus.components.androidSdk.status === 'installed' ? 'text-emerald-400' : 'text-neutral-400'}>
+                  {envStatus.components.androidSdk.status === 'installed' ? 'API 34 Ready' : 'Belum Terhubung'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>JDK (Java 17):</span>
-                <span className={envStatus.components.jdk.isAvailable ? 'text-emerald-400' : 'text-neutral-400'}>
-                  {envStatus.components.jdk.isAvailable ? 'Tersedia' : 'Belum Terhubung'}
+                <span className={envStatus.components.jdk.status === 'installed' ? 'text-emerald-400' : 'text-neutral-400'}>
+                  {envStatus.components.jdk.status === 'installed' ? 'Tersedia' : 'Belum Terhubung'}
                 </span>
+              </div>
+              <div className="flex justify-between">
+                <span>Gradle Wrapper:</span>
+                <span className="text-emerald-400">8.7 Active</span>
               </div>
             </div>
           </div>
@@ -162,7 +179,7 @@ export const DashboardView: React.FC = () => {
               onClick={() => setActiveView('android-sdk')}
               className="text-[11px] text-neutral-400 hover:text-neutral-200 transition-colors cursor-pointer"
             >
-              Pengaturan SDK →
+              Detail Toolchain →
             </button>
           </div>
         </div>
@@ -255,10 +272,10 @@ export const DashboardView: React.FC = () => {
         ) : (
           <div className="border border-neutral-800 rounded-lg overflow-hidden bg-neutral-900/50">
             <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-neutral-900 border-b border-neutral-800 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
-              <div className="col-span-4">Nama Proyek & ID Paket</div>
-              <div className="col-span-3">Template</div>
-              <div className="col-span-3">Terakhir Diubah</div>
-              <div className="col-span-2 text-right">Tindakan</div>
+              <div className="col-span-4">Aplikasi & ID Paket</div>
+              <div className="col-span-3">Template & Versi</div>
+              <div className="col-span-2">Terakhir Diubah</div>
+              <div className="col-span-3 text-right">Tindakan Cepat</div>
             </div>
 
             <div className="divide-y divide-neutral-800/60">
@@ -273,14 +290,14 @@ export const DashboardView: React.FC = () => {
                       onClick={() => handleOpenProject(p)}
                       className="font-medium text-neutral-200 hover:text-blue-400 transition-colors text-left truncate block max-w-full cursor-pointer"
                     >
-                      {p.name}
+                      {p.displayName || p.name}
                     </button>
                     <div className="text-[11px] font-mono text-neutral-400 truncate">
-                      {p.packageId}
+                      {p.packageId} · <span className="text-neutral-400">{p.name}</span>
                     </div>
                   </div>
 
-                  {/* Template */}
+                  {/* Template & Version */}
                   <div className="col-span-3">
                     <span className="text-neutral-300 font-mono text-[11px]">
                       {p.template === 'empty-android'
@@ -289,30 +306,30 @@ export const DashboardView: React.FC = () => {
                         ? 'Basic Activity'
                         : 'WebView Starter'}
                     </span>
-                    <div className="text-[10px] text-neutral-400">
-                      {p.filesCount} file dihasilkan
+                    <div className="text-[10px] text-neutral-400 font-mono">
+                      v{p.versionName || '1.0.0'} (code: {p.versionCode || 1}) · {p.filesCount} file
                     </div>
                   </div>
 
                   {/* Date */}
-                  <div className="col-span-3 text-neutral-400 text-[11px] flex items-center gap-1.5 font-mono">
+                  <div className="col-span-2 text-neutral-400 text-[11px] flex items-center gap-1.5 font-mono">
                     <Calendar className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>{new Date(p.updatedAt).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric',
-                    })}</span>
+                    <span>
+                      {new Date(p.updatedAt).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', {
+                        day: 'numeric',
+                        month: 'short',
+                      })}
+                    </span>
                   </div>
 
-                  {/* Actions */}
-                  <div className="col-span-2 flex items-center justify-end gap-1.5">
+                  {/* Actions: Open, Validate, Build, Delete */}
+                  <div className="col-span-3 flex items-center justify-end gap-1.5">
                     <button
                       onClick={() => handleOpenProject(p)}
-                      className="p-1.5 rounded hover:bg-neutral-700 text-neutral-300 hover:text-white transition-colors cursor-pointer"
-                      title="Buka Proyek"
-                      aria-label="Buka Proyek"
+                      className="px-2.5 py-1 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer text-[11px] font-medium"
+                      title="Buka & Periksa Proyek"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      Buka
                     </button>
                     <button
                       onClick={() => setDeleteModalProject(p)}

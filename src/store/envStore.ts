@@ -1,6 +1,6 @@
 /**
  * Nusantara App Builder - Environment Store
- * Tracks real availability of Android SDK, JDK, and Gradle.
+ * Tracks real availability of Android SDK, ADB, Platforms, JDK, and Gradle.
  */
 
 import { create } from 'zustand';
@@ -20,22 +20,58 @@ const initialStatus: EnvironmentStatus = {
   overallReady: false,
   components: {
     androidSdk: {
-      name: 'Android SDK (API 34)',
+      name: 'Android SDK Root (API 34)',
+      category: 'sdk',
       configuredPath: '',
+      status: 'missing',
       isAvailable: false,
-      error: 'Belum dipindai',
+      statusText: 'Belum dipindai',
+      statusTextId: 'Belum dipindai',
+    },
+    adb: {
+      name: 'Android Debug Bridge (ADB)',
+      category: 'adb',
+      configuredPath: '',
+      status: 'missing',
+      isAvailable: false,
+      statusText: 'Belum dipindai',
+      statusTextId: 'Belum dipindai',
+    },
+    sdkPlatform: {
+      name: 'SDK Platform android-34',
+      category: 'platform',
+      configuredPath: '',
+      status: 'missing',
+      isAvailable: false,
+      statusText: 'Belum dipindai',
+      statusTextId: 'Belum dipindai',
     },
     jdk: {
-      name: 'Java Development Kit (JDK 17/21)',
+      name: 'Java Development Kit (JDK 17 LTS)',
+      category: 'jdk',
       configuredPath: '',
+      status: 'missing',
       isAvailable: false,
-      error: 'Belum dipindai',
+      statusText: 'Belum dipindai',
+      statusTextId: 'Belum dipindai',
     },
     gradle: {
-      name: 'Gradle Build Tool',
-      configuredPath: 'Embedded Gradle Wrapper 8.5',
+      name: 'Gradle Wrapper 8.7',
+      category: 'gradle',
+      configuredPath: 'Embedded Gradle Wrapper 8.7',
+      status: 'installed',
       isAvailable: true,
-      version: '8.5',
+      statusText: 'Gradle Wrapper 8.7 tersemat.',
+      statusTextId: 'Gradle Wrapper 8.7 tersemat.',
+    },
+    directoryAccess: {
+      name: 'Filesystem Permissions',
+      category: 'permissions',
+      configuredPath: 'Project target folder',
+      status: 'installed',
+      isAvailable: true,
+      statusText: 'Izin direktori siap.',
+      statusTextId: 'Izin direktori siap.',
     },
   },
 };

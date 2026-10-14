@@ -1,18 +1,26 @@
 /**
  * Nusantara App Builder - Settings & Environment Types
+ * Phase 2: Detailed toolchain diagnostic and verification
  */
 
 export type ThemeMode = 'dark' | 'light' | 'system';
 export type LanguageCode = 'id' | 'en';
 
-export interface ToolchainComponent {
+export type ComponentStatus = 'installed' | 'missing' | 'misconfigured' | 'unable-to-detect';
+
+export interface DetailedToolchainComponent {
   name: string;
+  category: 'sdk' | 'adb' | 'platform' | 'jdk' | 'gradle' | 'permissions';
   configuredPath: string;
   detectedPath?: string;
   version?: string;
+  status: ComponentStatus;
   isAvailable: boolean;
+  statusText: string;
+  statusTextId: string;
   lastChecked?: string;
-  error?: string;
+  diagnosticAdvice?: string;
+  diagnosticAdviceId?: string;
 }
 
 export interface EnvironmentStatus {
@@ -20,9 +28,12 @@ export interface EnvironmentStatus {
   lastChecked: string | null;
   overallReady: boolean;
   components: {
-    androidSdk: ToolchainComponent;
-    jdk: ToolchainComponent;
-    gradle: ToolchainComponent;
+    androidSdk: DetailedToolchainComponent;
+    adb: DetailedToolchainComponent;
+    sdkPlatform: DetailedToolchainComponent;
+    jdk: DetailedToolchainComponent;
+    gradle: DetailedToolchainComponent;
+    directoryAccess: DetailedToolchainComponent;
   };
 }
 
@@ -47,11 +58,17 @@ export interface AppSettings {
     defaultTemplate: 'empty-android' | 'basic-activity' | 'webview-starter';
     defaultCompileSdk: number;
     defaultMinSdk: number;
+    defaultVersionName: string;
+    defaultVersionCode: number;
   };
   toolchain: {
     androidSdkPath: string;
     jdkPath: string;
     gradlePath: string;
     autoDetect: boolean;
+    compatibleAgpVersion: string;
+    compatibleGradleVersion: string;
+    compatibleKotlinVersion: string;
+    compatibleJdkVersion: string;
   };
 }

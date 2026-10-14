@@ -95,6 +95,7 @@ describe('Project Validator', () => {
       {
         id: '1',
         name: 'ExistingApp',
+        displayName: 'Existing App',
         packageId: 'com.test.existing',
         location: 'C:\\Projects',
         description: '',
@@ -103,6 +104,7 @@ describe('Project Validator', () => {
         interfaceLanguage: 'id',
         createdAt: '',
         updatedAt: '',
+        formatVersion: '2.0',
         minSdk: 26,
         targetSdk: 34,
         compileSdk: 34,
