@@ -19,6 +19,9 @@ import {
   FileCode,
   HelpCircle,
   FolderOpen,
+  Layers,
+  Plus,
+  Star,
 } from 'lucide-react';
 import { useTranslation } from '../../localization/useTranslation';
 import { useDesignerStore } from '../../../store/designerStore';
@@ -26,7 +29,11 @@ import { useProjectStore } from '../../../store/projectStore';
 import { useUiStore } from '../../../store/uiStore';
 import { ComponentType } from '../../../types/visualDesigner';
 
-export const DesignerMenuBar: React.FC = () => {
+interface DesignerMenuBarProps {
+  onOpenScreenManager?: () => void;
+}
+
+export const DesignerMenuBar: React.FC<DesignerMenuBarProps> = ({ onOpenScreenManager }) => {
   const { lang } = useTranslation();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -47,6 +54,12 @@ export const DesignerMenuBar: React.FC = () => {
   const isPreviewMode = useDesignerStore((s) => s.isPreviewMode);
   const generateAndroidLayouts = useDesignerStore((s) => s.generateAndroidLayouts);
   const addComponent = useDesignerStore((s) => s.addComponent);
+  const design = useDesignerStore((s) => s.design);
+  const activeScreenId = useDesignerStore((s) => s.activeScreenId);
+  const addScreen = useDesignerStore((s) => s.addScreen);
+  const duplicateScreen = useDesignerStore((s) => s.duplicateScreen);
+  const deleteScreen = useDesignerStore((s) => s.deleteScreen);
+  const setStartScreen = useDesignerStore((s) => s.setStartScreen);
 
   const activeProject = useProjectStore((s) => s.activeProject);
   const setActiveView = useUiStore((s) => s.setActiveView);
@@ -308,6 +321,101 @@ export const DesignerMenuBar: React.FC = () => {
               className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 cursor-pointer"
             >
               <span>+ {isIndo ? 'Gambar (ImageView)' : 'Image View'}</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* SCREEN */}
+      <div className="relative">
+        <button
+          onClick={() => handleMenuClick('screen')}
+          className={`px-2.5 py-1 rounded text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer ${
+            openMenu === 'screen' ? 'bg-neutral-800 text-white' : ''
+          }`}
+        >
+          {isIndo ? 'Layar' : 'Screen'}
+        </button>
+        {openMenu === 'screen' && (
+          <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 rounded-md shadow-2xl py-1 z-50 text-xs">
+            {onOpenScreenManager && (
+              <button
+                onClick={() => executeAction(onOpenScreenManager)}
+                className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex items-center justify-between cursor-pointer font-medium text-blue-300 hover:text-white"
+              >
+                <div className="flex items-center gap-2">
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>{isIndo ? 'Kelola Layar...' : 'Manage Screens...'}</span>
+                </div>
+              </button>
+            )}
+            <button
+              onClick={() =>
+                executeAction(() => {
+                  if (onOpenScreenManager) {
+                    onOpenScreenManager();
+                  } else {
+                    const count = (design?.screens.length || 0) + 1;
+                    addScreen(`Layar Baru ${count}`);
+                    showToast(isIndo ? 'Layar baru ditambahkan' : 'New screen added');
+                  }
+                })
+              }
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>{isIndo ? 'Tambah Layar Baru' : 'Add New Screen'}</span>
+            </button>
+            <button
+              onClick={() =>
+                executeAction(() => {
+                  if (activeScreenId) {
+                    duplicateScreen(activeScreenId);
+                    showToast(isIndo ? 'Layar berhasil digandakan' : 'Screen duplicated');
+                  }
+                })
+              }
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 cursor-pointer"
+            >
+              <Copy className="w-3.5 h-3.5" />
+              <span>{isIndo ? 'Duplikasi Layar Aktif' : 'Duplicate Current Screen'}</span>
+            </button>
+            <button
+              onClick={() =>
+                executeAction(() => {
+                  if (activeScreenId) {
+                    setStartScreen(activeScreenId);
+                    showToast(isIndo ? 'Ditetapkan sebagai layar utama (Launcher)' : 'Set as main starter screen');
+                  }
+                })
+              }
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex items-center gap-2 cursor-pointer"
+            >
+              <Star className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isIndo ? 'Jadikan Layar Utama (Launcher)' : 'Set as Main Launcher'}</span>
+            </button>
+            <div className="h-[1px] bg-neutral-800 my-1" />
+            <button
+              onClick={() =>
+                executeAction(() => {
+                  if (activeScreenId) {
+                    const ok = deleteScreen(activeScreenId);
+                    if (ok) {
+                      showToast(isIndo ? 'Layar berhasil dihapus' : 'Screen deleted');
+                    } else {
+                      showToast(
+                        isIndo
+                          ? 'Tidak dapat menghapus layar satu-satunya dalam proyek'
+                          : 'Cannot delete the only screen in project'
+                      );
+                    }
+                  }
+                })
+              }
+              className="w-full text-left px-3 py-1.5 hover:bg-rose-600 hover:text-white text-rose-400 flex items-center gap-2 cursor-pointer"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>{isIndo ? 'Hapus Layar Aktif' : 'Delete Current Screen'}</span>
             </button>
           </div>
         )}

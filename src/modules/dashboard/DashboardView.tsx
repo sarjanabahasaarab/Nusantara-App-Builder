@@ -21,6 +21,7 @@ import {
   FileCode2,
   ShieldCheck,
   PlaySquare,
+  Palette,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useUiStore } from '../../store/uiStore';
@@ -322,8 +323,19 @@ export const DashboardView: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Actions: Open, Validate, Build, Delete */}
+                  {/* Actions: Open, Visual Designer, Delete */}
                   <div className="col-span-3 flex items-center justify-end gap-1.5">
+                    <button
+                      onClick={async () => {
+                        await openProject(p.id);
+                        setActiveView('visual-designer');
+                      }}
+                      className="px-2 py-1 rounded bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white transition-colors cursor-pointer text-[11px] font-medium flex items-center gap-1"
+                      title={lang === 'id' ? 'Buka di Visual Designer' : 'Open in Visual Designer'}
+                    >
+                      <Palette className="w-3 h-3" />
+                      <span className="hidden xl:inline">{lang === 'id' ? 'Desain' : 'Design'}</span>
+                    </button>
                     <button
                       onClick={() => handleOpenProject(p)}
                       className="px-2.5 py-1 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer text-[11px] font-medium"

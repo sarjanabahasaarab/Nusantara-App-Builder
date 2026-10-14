@@ -180,7 +180,7 @@ export const VisualDesignerWorkspace: React.FC = () => {
   return (
     <div className="h-full w-full flex flex-col bg-neutral-950 overflow-hidden relative">
       {/* 1. Designer Menu Bar */}
-      <DesignerMenuBar />
+      <DesignerMenuBar onOpenScreenManager={() => setIsScreenManagerOpen(true)} />
 
       {/* 2. Designer Toolbar */}
       <DesignerToolbar onOpenScreenManager={() => setIsScreenManagerOpen(true)} />

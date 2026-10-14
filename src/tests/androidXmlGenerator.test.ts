@@ -211,4 +211,107 @@ describe('Android XML Layout Generator', () => {
     expect(res.fullXml).toContain('<!-- Unrecognized Component: futureAiWidget -->');
     expect(res.fullXml).toContain('android:id="@+id/unsupported_test"');
   });
+
+  it('generates valid XML for all specialized components (linearLayout, container, scrollView, image, input controls)', () => {
+    const fullComponentsScreen: VisualScreen = {
+      id: 'screen_all',
+      name: 'All Components Screen',
+      layoutFileName: 'activity_components.xml',
+      orientation: 'portrait',
+      devicePreset: 'pixel_7',
+      backgroundColor: '#121212',
+      root: {
+        id: 'scroll_root',
+        type: 'scrollView',
+        name: 'ScrollView Root',
+        properties: { id: 'scroll_root', name: 'ScrollView Root', width: 'match_parent', height: 'match_parent' },
+        children: [
+          {
+            id: 'generic_linear',
+            type: 'linearLayout',
+            name: 'Linear Layout',
+            properties: { id: 'generic_linear', name: 'Linear Layout', width: 'match_parent', height: 'wrap_content', orientation: 'vertical' },
+            children: [
+              {
+                id: 'frame_container',
+                type: 'container',
+                name: 'Frame Container',
+                properties: { id: 'frame_container', name: 'Frame Container', width: 'match_parent', height: 'wrap_content' },
+              },
+              {
+                id: 'horizontal_row',
+                type: 'horizontalLayout',
+                name: 'Horizontal Row',
+                properties: { id: 'horizontal_row', name: 'Horizontal Row', width: 'match_parent', height: 'wrap_content' },
+              },
+              {
+                id: 'et_password',
+                type: 'passwordField',
+                name: 'Password Field',
+                properties: { id: 'et_password', name: 'Password Field', width: 'match_parent', height: 'wrap_content', isPassword: true },
+              },
+              {
+                id: 'cb_terms',
+                type: 'checkbox',
+                name: 'Terms Checkbox',
+                properties: { id: 'cb_terms', name: 'Terms Checkbox', width: 'wrap_content', height: 'wrap_content', label: 'Agree to Terms' },
+              },
+              {
+                id: 'rb_opt1',
+                type: 'radioButton',
+                name: 'Radio Option 1',
+                properties: { id: 'rb_opt1', name: 'Radio Option 1', width: 'wrap_content', height: 'wrap_content', label: 'Option A' },
+              },
+              {
+                id: 'iv_avatar',
+                type: 'image',
+                name: 'User Avatar',
+                properties: { id: 'iv_avatar', name: 'User Avatar', width: 80, height: 80, scaleType: 'centerCrop', contentDescription: 'Avatar' },
+              },
+              {
+                id: 'ib_action',
+                type: 'imageButton',
+                name: 'Action Image Button',
+                properties: { id: 'ib_action', name: 'Action Image Button', width: 48, height: 48, contentDescription: 'Action' },
+              },
+              {
+                id: 'div_sep',
+                type: 'divider',
+                name: 'Section Divider',
+                properties: { id: 'div_sep', name: 'Section Divider', width: 'match_parent', height: 1, backgroundColor: '#333333' },
+              },
+              {
+                id: 'sp_spacer',
+                type: 'spacer',
+                name: 'Vertical Spacer',
+                properties: { id: 'sp_spacer', name: 'Vertical Spacer', width: 'match_parent', height: 24 },
+              },
+              {
+                id: 'pb_loading',
+                type: 'progressBar',
+                name: 'Progress Indicator',
+                properties: { id: 'pb_loading', name: 'Progress Indicator', width: 'match_parent', height: 'wrap_content', progress: 75, progressStyle: 'horizontal' },
+              },
+            ],
+          },
+        ],
+      },
+    };
+
+    const res = generateAndroidXmlLayout(fullComponentsScreen);
+    expect(res.fullXml).toContain('<ScrollView');
+    expect(res.fullXml).toContain('<FrameLayout');
+    expect(res.fullXml).toContain('android:inputType="textPassword"');
+    expect(res.fullXml).toContain('<CheckBox');
+    expect(res.fullXml).toContain('android:text="Agree to Terms"');
+    expect(res.fullXml).toContain('<RadioButton');
+    expect(res.fullXml).toContain('android:text="Option A"');
+    expect(res.fullXml).toContain('<ImageView');
+    expect(res.fullXml).toContain('android:scaleType="centerCrop"');
+    expect(res.fullXml).toContain('<ImageButton');
+    expect(res.fullXml).toContain('<View');
+    expect(res.fullXml).toContain('<Space');
+    expect(res.fullXml).toContain('<ProgressBar');
+    expect(res.fullXml).toContain('android:progress="75"');
+  });
 });

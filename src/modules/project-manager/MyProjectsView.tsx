@@ -13,6 +13,7 @@ import {
   FileCode2,
   Layers,
   Sparkles,
+  Palette,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useProjectStore } from '../../store/projectStore';
@@ -187,13 +188,27 @@ export const MyProjectsView: React.FC = () => {
               </div>
 
               <div className="mt-4 pt-3 border-t border-neutral-800 flex items-center justify-between text-xs">
-                <button
-                  onClick={() => handleOpen(p)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer font-medium"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Buka Proyek</span>
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => handleOpen(p)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer font-medium"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Buka Proyek</span>
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      await openProject(p.id);
+                      setActiveView('visual-designer');
+                    }}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white transition-colors cursor-pointer font-medium"
+                    title={lang === 'id' ? 'Buka di Visual Designer' : 'Open in Visual Designer'}
+                  >
+                    <Palette className="w-3.5 h-3.5" />
+                    <span>Desain</span>
+                  </button>
+                </div>
 
                 <button
                   onClick={() => setDeleteModalProject(p)}
