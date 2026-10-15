@@ -23,6 +23,7 @@ import {
   PlaySquare,
   Palette,
   Code2,
+  Globe2,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useUiStore } from '../../store/uiStore';
@@ -88,17 +89,26 @@ export const DashboardView: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={openWizard}
-          className="flex items-center gap-1.5 px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer self-start md:self-auto shadow-xs"
-        >
-          <FolderPlus className="w-4 h-4" />
-          <span>{t.dashboard.createProjectCardTitle}</span>
-        </button>
+        <div className="flex items-center gap-2 self-start md:self-auto">
+          <button
+            onClick={() => setActiveView('website-to-apk')}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-100 text-xs font-semibold transition-colors cursor-pointer border border-neutral-700 shadow-xs"
+          >
+            <Globe2 className="w-4 h-4 text-blue-400" />
+            <span>{lang === 'id' ? 'Website ke APK' : 'Website to App'}</span>
+          </button>
+          <button
+            onClick={openWizard}
+            className="flex items-center gap-1.5 px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+          >
+            <FolderPlus className="w-4 h-4" />
+            <span>{t.dashboard.createProjectCardTitle}</span>
+          </button>
+        </div>
       </div>
 
       {/* Quick Action Cards & Metric Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         {/* Card 1: Create New Android Project */}
         <button
           onClick={openWizard}
@@ -116,7 +126,26 @@ export const DashboardView: React.FC = () => {
           </p>
         </button>
 
-        {/* Card 2: Open Existing Project */}
+        {/* Card 2: Website to APK (Phase 5) */}
+        <button
+          onClick={() => setActiveView('website-to-apk')}
+          className="p-4 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-blue-500/60 hover:bg-neutral-900/90 text-left transition-all group cursor-pointer shadow-xs"
+        >
+          <div className="w-9 h-9 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <Globe2 className="w-5 h-5" />
+          </div>
+          <div className="font-semibold text-sm text-neutral-100 group-hover:text-blue-400 flex items-center justify-between">
+            <span>{lang === 'id' ? 'Website ke APK & AAB' : 'Website to APK & AAB'}</span>
+            <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" />
+          </div>
+          <p className="text-xs text-neutral-400 mt-1">
+            {lang === 'id'
+              ? 'Konversi website online atau folder HTML lokal menjadi aplikasi Android.'
+              : 'Convert online website or local HTML folder into an Android application.'}
+          </p>
+        </button>
+
+        {/* Card 3: Open Existing Project */}
         <button
           onClick={() => setOpenProjectModalOpen(true)}
           className="p-4 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-700 text-left transition-all group cursor-pointer shadow-xs"

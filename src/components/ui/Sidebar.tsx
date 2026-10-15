@@ -61,8 +61,6 @@ export const Sidebar: React.FC = () => {
       id: 'website-to-apk',
       label: t.sidebar.websiteToApk,
       icon: Globe2,
-      isComingSoon: true,
-      phase: 4,
     },
     {
       id: 'android-sdk',

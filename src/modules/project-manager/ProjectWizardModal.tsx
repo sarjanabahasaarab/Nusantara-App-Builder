@@ -207,6 +207,33 @@ export const ProjectWizardModal: React.FC = () => {
 
         {/* Content Body */}
         <div className="p-6 overflow-y-auto flex-1 text-xs space-y-4">
+          {/* Website to APK Quick Banner */}
+          <div className="p-3 rounded-lg bg-blue-950/40 border border-blue-800/60 flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <Globe2 className="w-4 h-4 text-blue-400 shrink-0" />
+              <div>
+                <span className="font-semibold text-neutral-100">
+                  {lang === 'id' ? 'Ingin mengubah website menjadi aplikasi Android?' : 'Want to convert a website into an Android app?'}
+                </span>
+                <span className="text-neutral-400 block text-[11px]">
+                  {lang === 'id'
+                    ? 'Gunakan Wizard Website ke APK & AAB untuk website online atau berkas lokal.'
+                    : 'Use the Website to APK & AAB Wizard for online or local websites.'}
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                closeWizard();
+                setActiveView('website-to-apk');
+              }}
+              className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shrink-0 cursor-pointer shadow-xs transition-colors"
+            >
+              {lang === 'id' ? 'Buka Website to APK' : 'Open Website to App'}
+            </button>
+          </div>
+
           {/* STEP 1: Details & Identity */}
           {step === 1 && (
             <div className="space-y-4">

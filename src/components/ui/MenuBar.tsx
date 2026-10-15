@@ -72,6 +72,13 @@ export const MenuBar: React.FC = () => {
               <span className="text-neutral-400 text-[11px]">Ctrl+N</span>
             </button>
             <button
+              onClick={() => executeAction(() => setActiveView('website-to-apk'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{t.sidebar.websiteToApk}</span>
+              <span className="text-neutral-400 text-[11px]">Wizard</span>
+            </button>
+            <button
               onClick={() => executeAction(() => setOpenProjectModalOpen(true))}
               className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
             >
@@ -301,6 +308,12 @@ export const MenuBar: React.FC = () => {
         </button>
         {openMenu === 'tools' && (
           <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
+            <button
+              onClick={() => executeAction(() => setActiveView('website-to-apk'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{t.sidebar.websiteToApk}</span>
+            </button>
             <button
               onClick={() => executeAction(() => setActiveView('android-sdk'))}
               className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
