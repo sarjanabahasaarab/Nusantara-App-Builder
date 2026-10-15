@@ -20,6 +20,7 @@ import { ProjectDetailView } from './modules/project-manager/ProjectDetailView';
 import { AndroidSdkView } from './modules/environment/AndroidSdkView';
 import { SettingsView } from './modules/settings/SettingsView';
 import { VisualDesignerWorkspace } from './modules/visual-designer/VisualDesignerWorkspace';
+import { CodeEditorWorkspace } from './modules/code-editor/CodeEditorWorkspace';
 import { ComingSoonView } from './modules/contracts/ComingSoonView';
 
 // Stores
@@ -54,6 +55,7 @@ export default function App() {
       case 'visual-designer':
         return <VisualDesignerWorkspace />;
       case 'code-editor':
+        return <CodeEditorWorkspace />;
       case 'website-to-apk':
       case 'build-run':
       case 'monetization':

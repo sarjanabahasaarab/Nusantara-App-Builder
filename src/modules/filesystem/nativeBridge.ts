@@ -214,6 +214,193 @@ export class NativeBridge {
   }
 
   /**
+   * Saves content of a project file (atomic write)
+   */
+  static async saveProjectFile(
+    projectId: string,
+    relativePath: string,
+    content: string
+  ): Promise<boolean> {
+    const files = await this.getProjectFiles(projectId);
+    const existingIndex = files.findIndex((f) => f.path === relativePath);
+
+    if (existingIndex >= 0) {
+      files[existingIndex].content = content;
+      files[existingIndex].size = content.length;
+    } else {
+      const fileName = relativePath.split('/').pop() || relativePath;
+      files.push({
+        path: relativePath,
+        name: fileName,
+        content,
+        size: content.length,
+        isDirectory: false,
+      });
+    }
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(`${STORAGE_FILES_PREFIX}${projectId}`, JSON.stringify(files));
+    }
+
+    // Update project metadata updatedAt
+    const list = await this.listProjects();
+    const proj = list.find((p) => p.id === projectId);
+    if (proj) {
+      proj.updatedAt = new Date().toISOString();
+      proj.filesCount = files.length;
+      localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(list));
+    }
+
+    return true;
+  }
+
+  /**
+   * Creates a new file or directory within a project
+   */
+  static async createProjectFile(
+    projectId: string,
+    relativePath: string,
+    isDirectory: boolean,
+    initialContent: string = ''
+  ): Promise<ProjectFile> {
+    const files = await this.getProjectFiles(projectId);
+    const normalized = relativePath.replace(/\\/g, '/');
+
+    if (files.some((f) => f.path === normalized)) {
+      throw new Error(`Berkas "${normalized}" sudah ada di proyek.`);
+    }
+
+    const fileName = normalized.split('/').pop() || normalized;
+    const newFile: ProjectFile = {
+      path: normalized,
+      name: fileName,
+      content: isDirectory ? '' : initialContent,
+      isDirectory,
+      size: isDirectory ? 0 : initialContent.length,
+    };
+
+    files.push(newFile);
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(`${STORAGE_FILES_PREFIX}${projectId}`, JSON.stringify(files));
+    }
+
+    return newFile;
+  }
+
+  /**
+   * Renames a file or directory in a project
+   */
+  static async renameProjectFile(
+    projectId: string,
+    oldPath: string,
+    newPath: string
+  ): Promise<boolean> {
+    const files = await this.getProjectFiles(projectId);
+    const normOld = oldPath.replace(/\\/g, '/');
+    const normNew = newPath.replace(/\\/g, '/');
+
+    let modified = false;
+
+    for (const f of files) {
+      if (f.path === normOld) {
+        f.path = normNew;
+        f.name = normNew.split('/').pop() || normNew;
+        modified = true;
+      } else if (f.path.startsWith(`${normOld}/`)) {
+        f.path = f.path.replace(normOld, normNew);
+        modified = true;
+      }
+    }
+
+    if (modified && typeof localStorage !== 'undefined') {
+      localStorage.setItem(`${STORAGE_FILES_PREFIX}${projectId}`, JSON.stringify(files));
+    }
+
+    return modified;
+  }
+
+  /**
+   * Deletes a file or directory hierarchy from a project
+   */
+  static async deleteProjectFile(projectId: string, targetPath: string): Promise<boolean> {
+    const files = await this.getProjectFiles(projectId);
+    const normTarget = targetPath.replace(/\\/g, '/');
+
+    const filtered = files.filter(
+      (f) => f.path !== normTarget && !f.path.startsWith(`${normTarget}/`)
+    );
+
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(`${STORAGE_FILES_PREFIX}${projectId}`, JSON.stringify(filtered));
+    }
+
+    return true;
+  }
+
+  /**
+   * Searches across all text files in a project
+   */
+  static async searchInProject(
+    projectId: string,
+    query: string,
+    options: { matchCase?: boolean; wholeWord?: boolean; isRegex?: boolean } = {}
+  ): Promise<
+    {
+      filePath: string;
+      line: number;
+      column: number;
+      lineText: string;
+      matchLength: number;
+    }[]
+  > {
+    if (!query) return [];
+    const files = await this.getProjectFiles(projectId);
+    const results: {
+      filePath: string;
+      line: number;
+      column: number;
+      lineText: string;
+      matchLength: number;
+    }[] = [];
+
+    let regex: RegExp;
+    try {
+      let pattern = options.isRegex ? query : query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (options.wholeWord) {
+        pattern = `\\b${pattern}\\b`;
+      }
+      regex = new RegExp(pattern, options.matchCase ? 'g' : 'gi');
+    } catch {
+      return [];
+    }
+
+    for (const file of files) {
+      if (file.isDirectory || !file.content) continue;
+
+      const lines = file.content.split('\n');
+      for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        const lineText = lines[lineIdx];
+        regex.lastIndex = 0;
+        let match: RegExpExecArray | null;
+
+        while ((match = regex.exec(lineText)) !== null) {
+          results.push({
+            filePath: file.path,
+            line: lineIdx + 1,
+            column: match.index + 1,
+            lineText: lineText.trim(),
+            matchLength: match[0].length,
+          });
+          if (!regex.global) break;
+        }
+      }
+    }
+
+    return results;
+  }
+
+  /**
    * Validate project structure, Gradle files, manifest, and package ID consistency
    */
   static async validateProject(projectId: string): Promise<ProjectValidationReport> {

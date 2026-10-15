@@ -22,6 +22,7 @@ import {
   RefreshCw,
   Info,
   Palette,
+  Code2,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useProjectStore } from '../../store/projectStore';
@@ -149,7 +150,17 @@ export const ProjectDetailView: React.FC = () => {
             title={lang === 'id' ? 'Buka di Visual Designer' : 'Open in Visual Designer'}
           >
             <Palette className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{lang === 'id' ? 'Visual Designer' : 'Visual Designer'}</span>
+            <span className="hidden sm:inline">Visual Designer</span>
+          </button>
+
+          {/* Code Editor Button */}
+          <button
+            onClick={() => setActiveView('code-editor')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+            title={lang === 'id' ? 'Buka di Editor Kode' : 'Open in Code Editor'}
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{lang === 'id' ? 'Editor Kode' : 'Code Editor'}</span>
           </button>
 
           {/* Validate Project Button */}
@@ -241,22 +252,34 @@ export const ProjectDetailView: React.FC = () => {
                   <span className="text-neutral-400">({activeFile.size} bytes)</span>
                 </div>
 
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-[11px] transition-colors cursor-pointer"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>{t.projectDetail.copied}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>{t.projectDetail.copyContent}</span>
-                    </>
-                  )}
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={() => {
+                      setActiveView('code-editor');
+                    }}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white text-[11px] transition-colors cursor-pointer"
+                  >
+                    <Code2 className="w-3.5 h-3.5" />
+                    <span>{lang === 'id' ? 'Edit di Editor Kode' : 'Edit in Code Editor'}</span>
+                  </button>
+
+                  <button
+                    onClick={handleCopy}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-[11px] transition-colors cursor-pointer"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{t.projectDetail.copied}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>{t.projectDetail.copyContent}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
 
               {/* Code viewer content */}

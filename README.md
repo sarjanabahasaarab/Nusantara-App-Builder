@@ -15,13 +15,16 @@
 - **Phase 1: Open Source Foundation**: Antarmuka desktop Windows lengkap, custom TitleBar, MenuBar fungsional, Action Toolbar, Sidebar responsif, StatusBar, dukungan bilingual (ID/EN), tema Terang & Gelap, dan penyimpanan preferensi lokal.
 - **Phase 2: Android Project Engine**: Generator struktur proyek Android native (Gradle Wrapper 8.7, Kotlin 2.0, AGP 8.5, Android SDK 34), detektor lingkungan toolchain (SDK, ADB, JDK, Gradle), dan runner tugas Gradle yang dibatasi.
 - **Phase 3: Visual Designer (WYSIWYG Layout Engine)**:
-  - **Component Palette**: 18 komponen Android dalam 5 kategori (Layout, Typography, Inputs, Media, Utility) dengan pencarian instan dan drag-and-drop.
-  - **Phone Canvas**: Kanvas ponsel interaktif dengan bezel realistis, Status Bar, App Bar, rotasi potret/lanskap, preset perangkat (Pixel 7, Galaxy S23, Tablet), dan zoom 50%–200%.
-  - **Properties Panel**: Inspektur properti 3 tab (Spesifik, Tata Letak, Umum) dengan validasi ID unik Android.
-  - **State Machine & Undo/Redo**: Riwayat hingga 30 aksi untuk penambahan, penghapusan, duplikasi, dan pergerakan komponen.
-  - **Multi-Screen Manager**: Pengelolaan banyak layar, penggantian nama, duplikasi, penentuan layar awal (*launcher*).
-  - **Android XML Generator**: Pembangkitan layout Android XML standar dan penyimpanan otomatis langsung ke `app/src/main/res/layout/`.
-  - **Interactive Preview Simulator**: Uji coba interaktif tombol, input teks, dan toggle tanpa keluar dari editor.
+  - **Component Palette**: 18 komponen Android dalam 5 kategori dengan pencarian instan dan drag-and-drop.
+  - **Phone Canvas**: Kanvas ponsel interaktif dengan bezel realistis, Status Bar, App Bar, rotasi potret/lanskap, preset perangkat, dan zoom 50%–200%.
+  - **Multi-Screen Manager**: Pengelolaan banyak layar dan generator XML Android.
+- **Phase 4: Professional Code Editor**:
+  - **Monaco Editor Integration**: Editor kode multi-tab bertenaga Monaco dengan konfigurasi bahasa Kotlin, XML completion snippets, line numbers, folding, bracket matching, dan tema Gelap/Terang.
+  - **File Explorer**: Penjelajah pohon file Android dengan ikon per ekstensi, pencarian filter, aksi CRUD berkas/folder dengan konfirmasi aman, dan menu konteks.
+  - **Bi-directional Visual ↔ Code Sync**: Sinkronisasi dua arah antara file layout Android XML dan model Visual Designer dengan deteksi modifikasi manual dan preservasi aman elemen kustom.
+  - **Diagnostics & Problems Panel**: Deteksi kesalahan sintaks XML real-time, validasi `@+id/`, deteksi ID duplikat, dan pemeriksaan dasar kode Kotlin dengan navigasi klik langsung ke nomor baris.
+  - **Sandboxed Terminal**: Eksekusi perintah Gradle (`./gradlew assembleDebug`, `clean`, `check`) dan ADB menggunakan whitelist aman berbasis array argumen, pembatalan proses, dan streaming output.
+  - **Safe Atomic Save & Auto-Save**: Penyimpanan berkas terjamin UTF-8 dengan status Saved/Saving/Unsaved dan opsi auto-save (Off, After Delay, On Focus).
 
 ---
 
@@ -35,11 +38,14 @@
 - **Phase 3: Visual Designer (WYSIWYG Layout Engine)**:
   - **Component Palette**: 18 Android components across 5 categories with drag-and-drop & instant search.
   - **Phone Canvas**: Realistic phone bezel, status bar, app bar, orientation toggle, device presets, and zoom.
-  - **Properties Panel**: 3-tab inspector (Specific, Layout, General) with live Android ID validation.
-  - **State Machine & Undo/Redo**: 30-step history stack for mutations.
-  - **Multi-Screen Manager**: Manage multiple Android screens and designate launcher screens.
-  - **Android XML Generator**: Production-ready Android XML layout generation synchronized with `app/src/main/res/layout/`.
-  - **Interactive Preview Simulator**: Live interactive testing without leaving the IDE.
+  - **Multi-Screen Manager & XML Generator**: Production-ready Android XML layout generation.
+- **Phase 4: Professional Code Editor**:
+  - **Monaco Editor Integration**: Full-featured multi-tab code editor with custom Kotlin syntax highlighting, Android XML autocomplete snippets, line numbers, folding, and dark/light themes.
+  - **File Explorer**: Android project tree view with extension icons, filter search, safe file/folder CRUD, and right-click context menu.
+  - **Bi-directional Visual ↔ Code Sync**: Seamless synchronization between Android layout XML and Visual Designer, detecting manual edits while safely preserving custom views.
+  - **Diagnostics & Problems Panel**: Real-time XML structural validation, duplicate ID warnings, and Kotlin syntax checking with click-to-line navigation.
+  - **Sandboxed Terminal**: Secure whitelisted process runner for Gradle tasks and ADB with argument array security and cancellation support.
+  - **Safe Atomic Save & Auto-Save**: Resilient UTF-8 file saving with status indicators and flexible auto-save modes.
 
 ---
 

@@ -2,6 +2,32 @@
 
 Seluruh perubahan penting pada proyek ini dicatat dalam berkas ini.
 
+## [0.4.0-alpha] - 2026-10-15
+### Phase 4: Professional Multi-Tab Code Editor & Android Tooling
+
+#### Ditambahkan / Added
+- **Monaco Code Editor**: Editor kode profesional berbasis Monaco dengan dukungan syntax highlighting untuk Kotlin, Java, XML, Gradle, Groovy, Properties, JSON, HTML, CSS, JavaScript, dan Markdown.
+- **Dukungan Khusus Kotlin 2.0**: Pemeta token Monarch kustom untuk kata kunci, tipe, operator, kurung kurawal, dan auto-closing pairs.
+- **Dukungan Android XML Layout**: Autocomplete snippets untuk komponen Android (`LinearLayout`, `TextView`, `MaterialButton`, `TextInputEditText`), XML indentation, dan validasi atribut.
+- **Sistem Tab Multi-Berkas**: Pengelolaan banyak tab berkas terbuka dengan indikator perubahan (*dirty state*), penutupan mouse klik tengah, dan dialog konfirmasi penutupan aman (*Save, Don't Save, Cancel*).
+- **File Explorer Realistis**: Pohon direktori hierarkis dari proyek Android dengan ikon khusus per ekstensi berkas, pencarian filter nama berkas, dan menu konteks klik kanan.
+- **Operasi Berkas Aman (CRUD)**: Pembuatan berkas baru, pembuatan folder baru, pengubahan nama berkas (*rename*), dan penghapusan berkas dengan konfirmasi modal aman.
+- **Sinkronisasi Dua Arah Visual Designer ↔ Code Editor**:
+  - Deteksi modifikasi manual pada berkas layout XML Android.
+  - Dialog pemilihan aksi (*Open in Visual Designer*, *Keep XML changes*, *Compare changes*, *Cancel*).
+  - Parser layout XML Android universal (`xmlParser.ts`) yang memetakan elemen XML ke model visual dan mempreservasi elemen kustom yang belum didukung (`unsupportedView`).
+- **Formatter Dokumen**: Pemformatan dokumen XML standar dengan indentasi 4-spasi dan umpan balik aman untuk Kotlin.
+- **Pencarian & Penggantian (Search & Replace)**:
+  - Pencarian in-file (Ctrl+F) dan penggantian teks (Ctrl+H) dengan opsi Case-sensitive, Whole word, dan Regex.
+  - Pencarian lintas seluruh berkas proyek melalui `NativeBridge.searchInProject`.
+- **Panel Masalah (Problems Panel)**: Deteksi kesalahan sintaks XML real-time, validasi format `@+id/`, peringatan ID duplikat, dan kesalahan tanda kurung Kotlin dengan navigasi klik langsung ke nomor baris.
+- **Terminal Terintegrasi yang Aman (Sandboxed Terminal)**:
+  - Eksekusi tugas Gradle (`./gradlew assembleDebug`, `clean`, `check`, `--version`) dan ADB (`adb devices`) menggunakan whitelist dan vektor argumen tanpa shell string concatenation.
+  - Riwayat perintah (Up/Down arrow), tombol preset cepat, pembatalan proses (*cancellation token*), dan streaming stdout/stderr.
+- **Status Bar IDE Lengkap**: Koordinat kursor (*Ln X, Col Y*), ukuran tab spasi, encoding UTF-8, line endings LF, bahasa aktif, cabang Git, dan badge status penyimpanan atomik.
+- **Navigasi Cepat (Quick Open & Go to Line)**: Modal pencarian berkas cepat (Ctrl+P) dan lompat ke nomor baris (Ctrl+G).
+- **Testing Suite**: 18 pengujian unit dan integrasi baru (total 73 pengujian unit 100% lolos).
+
 ## [0.3.0-alpha] - 2026-10-14
 ### Phase 3: Visual Designer (WYSIWYG Android Layout Engine)
 

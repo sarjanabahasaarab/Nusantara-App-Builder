@@ -56,8 +56,6 @@ export const Sidebar: React.FC = () => {
       id: 'code-editor',
       label: t.sidebar.codeEditor,
       icon: Code2,
-      isComingSoon: true,
-      phase: 3,
     },
     {
       id: 'website-to-apk',

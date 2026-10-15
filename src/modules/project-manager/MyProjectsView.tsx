@@ -14,6 +14,7 @@ import {
   Layers,
   Sparkles,
   Palette,
+  Code2,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useProjectStore } from '../../store/projectStore';
@@ -207,6 +208,18 @@ export const MyProjectsView: React.FC = () => {
                   >
                     <Palette className="w-3.5 h-3.5" />
                     <span>Desain</span>
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      await openProject(p.id);
+                      setActiveView('code-editor');
+                    }}
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer font-medium"
+                    title={lang === 'id' ? 'Buka di Editor Kode' : 'Open in Code Editor'}
+                  >
+                    <Code2 className="w-3.5 h-3.5" />
+                    <span>Kode</span>
                   </button>
                 </div>
 

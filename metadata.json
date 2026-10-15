@@ -1,6 +1,6 @@
 {
   "name": "Nusantara App Builder",
-  "description": "Windows Desktop IDE open-source foundation for Android app development, featuring project manager, toolchain status, Android templates generator, and bilingual workflow.",
+  "description": "Windows Desktop IDE for Android app development, featuring visual designer, multi-tab Monaco code editor, terminal, project engine, and bilingual workflow.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
