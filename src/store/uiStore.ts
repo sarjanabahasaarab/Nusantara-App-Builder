@@ -11,6 +11,7 @@ export type ActiveView =
   | 'my-projects'
   | 'project-detail'
   | 'visual-designer'
+  | 'logic-designer'
   | 'code-editor'
   | 'website-to-apk'
   | 'android-sdk'

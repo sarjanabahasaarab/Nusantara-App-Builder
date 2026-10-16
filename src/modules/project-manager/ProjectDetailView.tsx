@@ -23,6 +23,7 @@ import {
   Info,
   Palette,
   Code2,
+  Zap,
 } from 'lucide-react';
 import { useTranslation } from '../localization/useTranslation';
 import { useProjectStore } from '../../store/projectStore';
@@ -151,6 +152,16 @@ export const ProjectDetailView: React.FC = () => {
           >
             <Palette className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Visual Designer</span>
+          </button>
+
+          {/* Logic Designer Button */}
+          <button
+            onClick={() => setActiveView('logic-designer')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+            title={lang === 'id' ? 'Buka di Logic Designer' : 'Open in Logic Designer'}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Logic Designer</span>
           </button>
 
           {/* Code Editor Button */}

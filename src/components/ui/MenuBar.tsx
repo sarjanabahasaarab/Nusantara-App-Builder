@@ -309,6 +309,12 @@ export const MenuBar: React.FC = () => {
         {openMenu === 'tools' && (
           <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
             <button
+              onClick={() => executeAction(() => setActiveView('logic-designer'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Logic Designer (Events, DB & API)</span>
+            </button>
+            <button
               onClick={() => executeAction(() => setActiveView('website-to-apk'))}
               className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
             >

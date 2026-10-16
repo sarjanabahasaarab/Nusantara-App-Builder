@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   FolderKanban,
   Palette,
+  Zap,
   Code2,
   Globe2,
   Cpu,
@@ -30,7 +31,7 @@ interface NavItem {
 }
 
 export const Sidebar: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const activeView = useUiStore((s) => s.activeView);
   const setActiveView = useUiStore((s) => s.setActiveView);
   const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed);
@@ -51,6 +52,11 @@ export const Sidebar: React.FC = () => {
       id: 'visual-designer',
       label: t.sidebar.visualDesigner,
       icon: Palette,
+    },
+    {
+      id: 'logic-designer',
+      label: lang === 'id' ? 'Logic Designer' : 'Logic Designer',
+      icon: Zap,
     },
     {
       id: 'code-editor',

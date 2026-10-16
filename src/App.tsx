@@ -22,6 +22,7 @@ import { SettingsView } from './modules/settings/SettingsView';
 import { VisualDesignerWorkspace } from './modules/visual-designer/VisualDesignerWorkspace';
 import { CodeEditorWorkspace } from './modules/code-editor/CodeEditorWorkspace';
 import { WebsiteToApkWorkspace } from './modules/website-to-apk/components/WebsiteToApkWorkspace';
+import { LogicDesignerWorkspace } from './modules/logic-designer/components/LogicDesignerWorkspace';
 import { ComingSoonView } from './modules/contracts/ComingSoonView';
 
 // Stores
@@ -55,6 +56,8 @@ export default function App() {
         return <SettingsView />;
       case 'visual-designer':
         return <VisualDesignerWorkspace />;
+      case 'logic-designer':
+        return <LogicDesignerWorkspace />;
       case 'code-editor':
         return <CodeEditorWorkspace />;
       case 'website-to-apk':
