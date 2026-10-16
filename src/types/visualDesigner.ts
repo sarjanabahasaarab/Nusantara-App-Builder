@@ -3,7 +3,7 @@
  * Phase 3: Visual Designer, Component Palette, Canvas, Properties, and Android XML Layout Generation
  */
 
-export type ComponentCategory = 'layout' | 'text' | 'input' | 'media' | 'other';
+export type ComponentCategory = 'layout' | 'text' | 'input' | 'media' | 'monetization' | 'other';
 
 export type ComponentType =
   // Layout
@@ -27,6 +27,11 @@ export type ComponentType =
   // Media
   | 'image'
   | 'imageButton'
+  // Monetization (Phase 9)
+  | 'admobBanner'
+  | 'admobInterstitial'
+  | 'admobRewarded'
+  | 'admobNative'
   // Other
   | 'divider'
   | 'spacer'
@@ -103,6 +108,15 @@ export interface ComponentProperties {
   maxProgress?: number;
   isIndeterminate?: boolean;
   progressStyle?: 'horizontal' | 'circular';
+
+  // AdMob & Monetization (Phase 9)
+  adUnitId?: string;
+  adSize?: 'BANNER' | 'LARGE_BANNER' | 'MEDIUM_RECTANGLE' | 'FULL_BANNER' | 'LEADERBOARD' | 'SMART_BANNER';
+  adPosition?: 'top' | 'bottom' | 'custom';
+  adTrigger?: 'after_page' | 'after_action' | 'after_navigation' | 'manual';
+  adRewardName?: string;
+  adRewardAmount?: number;
+  nativeTemplate?: 'small' | 'medium' | 'large' | 'custom';
 
   // Custom metadata / escape hatches
   customAttributes?: Record<string, string>;

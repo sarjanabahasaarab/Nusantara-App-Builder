@@ -187,6 +187,66 @@ export class ReleaseValidator {
       });
     }
 
+    // 7. AdMob & Monetization Pre-Release Checks (Phase 9)
+    const admobFile = files.find((f) => f.path.replace(/\\/g, '/').endsWith('admob.json'));
+    if (admobFile) {
+      try {
+        const admobConfig = JSON.parse(admobFile.content);
+        if (admobConfig.enabled) {
+          if (!admobConfig.appId || !admobConfig.appId.trim()) {
+            issues.push({
+              severity: 'error',
+              field: 'monetization',
+              description: 'AdMob is enabled, but AdMob App ID is empty.',
+              descriptionId: 'AdMob diaktifkan, tetapi AdMob App ID masih kosong.',
+              suggestedFix: 'Configure a valid AdMob App ID in the Monetization Center.',
+              suggestedFixId: 'Konfigurasikan AdMob App ID yang valid pada Pusat Monetisasi.',
+            });
+          }
+
+          if (profile.type === 'production' && admobConfig.environment === 'test') {
+            issues.push({
+              severity: 'error',
+              field: 'monetization',
+              description: 'AdMob is set to Test Mode for a Production build. Test ads will not generate revenue.',
+              descriptionId: 'AdMob diatur ke Mode Uji pada build Produksi. Iklan uji tidak menghasilkan pendapatan.',
+              suggestedFix: 'Switch AdMob to Production Mode with registered Ad Unit IDs.',
+              suggestedFixId: 'Alihkan AdMob ke Mode Produksi dengan Ad Unit ID terdaftar.',
+            });
+          }
+
+          if (profile.type === 'production') {
+            const hasTestIds = admobConfig.units?.some((u: any) =>
+              u.adUnitId?.includes('3940256099942544')
+            );
+            if (hasTestIds) {
+              issues.push({
+                severity: 'warning',
+                field: 'monetization',
+                description: 'One or more Ad Units are still using Google Official Test IDs.',
+                descriptionId: 'Satu atau lebih Ad Unit masih menggunakan Test ID resmi Google.',
+                suggestedFix: 'Replace test IDs with production Ad Unit IDs before uploading to Play Store.',
+                suggestedFixId: 'Ganti Test ID dengan ID Produksi sebelum mengunggah ke Play Store.',
+              });
+            }
+          }
+
+          if (!admobConfig.privacyPolicyUrl || !admobConfig.privacyPolicyUrl.trim()) {
+            issues.push({
+              severity: profile.type === 'production' ? 'error' : 'warning',
+              field: 'monetization',
+              description: 'Ad-supported apps require a valid Privacy Policy URL for Play Store compliance.',
+              descriptionId: 'Aplikasi dengan iklan wajib memiliki Kebijakan Privasi yang valid untuk kepatuhan Google Play.',
+              suggestedFix: 'Provide a valid HTTPS Privacy Policy URL in Monetization -> Consent & Privacy.',
+              suggestedFixId: 'Isi URL Kebijakan Privasi HTTPS yang valid pada tab Consent & Privasi.',
+            });
+          }
+        }
+      } catch {
+        // ignore parse error
+      }
+    }
+
     const errorsCount = issues.filter((i) => i.severity === 'error').length;
     const warningsCount = issues.filter((i) => i.severity === 'warning').length;
 

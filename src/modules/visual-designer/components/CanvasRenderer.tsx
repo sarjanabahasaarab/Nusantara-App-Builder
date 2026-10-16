@@ -441,6 +441,90 @@ export const CanvasRenderer: React.FC<CanvasRendererProps> = ({ component, isRoo
         );
       }
 
+      // AdMob & Monetization (Phase 9)
+      case 'admobBanner': {
+        return (
+          <div className="w-full my-1.5 p-2 bg-neutral-900 border-2 border-dashed border-amber-500/70 rounded-lg flex items-center justify-between shadow-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500 text-neutral-950 uppercase font-mono">
+                AdMob Banner
+              </span>
+              <span className="text-xs font-medium text-neutral-200">
+                {p.adSize || 'BANNER'} (320x50)
+              </span>
+            </div>
+            <span className="text-[10px] font-mono text-amber-400 truncate max-w-[140px]">
+              {p.adUnitId || 'ca-app-pub-test'}
+            </span>
+          </div>
+        );
+      }
+
+      case 'admobInterstitial': {
+        return (
+          <div className="w-full my-1.5 p-3 bg-purple-950/30 border border-purple-500/60 rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-purple-600 text-white uppercase font-mono">
+                Interstitial
+              </span>
+              <span className="text-xs text-neutral-200">
+                {p.adTrigger === 'after_navigation' ? 'After Navigation' : p.adTrigger || 'Full Screen Controller'}
+              </span>
+            </div>
+            <span className="text-[10px] text-purple-300 font-mono">
+              Freq: 60s
+            </span>
+          </div>
+        );
+      }
+
+      case 'admobRewarded': {
+        return (
+          <div className="w-full my-1.5 p-3 bg-emerald-950/30 border border-emerald-500/60 rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-600 text-white uppercase font-mono">
+                Rewarded Ad
+              </span>
+              <span className="text-xs text-neutral-200 font-semibold">
+                +{p.adRewardAmount || 100} {p.adRewardName || 'Coins'}
+              </span>
+            </div>
+            <span className="text-[10px] text-emerald-400 font-mono">
+              onUserEarnedReward
+            </span>
+          </div>
+        );
+      }
+
+      case 'admobNative': {
+        return (
+          <div className="w-full my-1.5 p-3.5 bg-neutral-900 border border-neutral-700 rounded-xl space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded bg-blue-600 flex items-center justify-center text-[11px] font-bold text-white">
+                  Ad
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-white">Sponsor Headline</span>
+                    <span className="text-[8px] font-bold px-1 rounded bg-amber-500 text-neutral-950">
+                      Ad
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-neutral-400">Sponsored Content</div>
+                </div>
+              </div>
+              <button className="px-2 py-0.5 text-[10px] font-bold bg-blue-600 text-white rounded">
+                Install
+              </button>
+            </div>
+            <p className="text-[11px] text-neutral-300">
+              Native AdMob Custom Template ({p.nativeTemplate || 'medium'})
+            </p>
+          </div>
+        );
+      }
+
       default:
         return (
           <div className="p-2 border border-red-500/50 bg-red-950/20 text-red-300 text-xs rounded">

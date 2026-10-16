@@ -27,6 +27,10 @@ import {
   ChevronDown,
   ChevronRight,
   Plus,
+  DollarSign,
+  Award,
+  Sparkles,
+  Layers,
 } from 'lucide-react';
 import { useTranslation } from '../../localization/useTranslation';
 import { useDesignerStore } from '../../../store/designerStore';
@@ -56,6 +60,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Minus,
   Maximize2,
   Loader2,
+  DollarSign,
+  Award,
+  Sparkles,
+  Layers,
 };
 
 export const ComponentPalette: React.FC = () => {

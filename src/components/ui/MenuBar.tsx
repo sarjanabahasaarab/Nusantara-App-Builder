@@ -10,6 +10,7 @@ import { useProjectStore } from '../../store/projectStore';
 import { useSettingsStore } from '../../store/settingsStore';
 import { useBuildEngineStore } from '../../modules/build-engine/store/buildEngineStore';
 import { useReleaseCenterStore } from '../../modules/release-center/store/releaseCenterStore';
+import { useMonetizationStore } from '../../modules/monetization/store/monetizationStore';
 
 export const MenuBar: React.FC = () => {
   const { t } = useTranslation();
@@ -526,6 +527,87 @@ export const MenuBar: React.FC = () => {
               }`}
             >
               <span>Release History & Audit</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* MONETIZATION MENU (Phase 9 AdMob Center) */}
+      <div className="relative">
+        <button
+          onClick={() => handleMenuClick('monetization')}
+          className={`px-2.5 py-1 rounded text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer ${
+            openMenu === 'monetization' ? 'bg-neutral-800 text-white' : ''
+          }`}
+        >
+          Monetization
+        </button>
+        {openMenu === 'monetization' && (
+          <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('admob');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer font-semibold"
+            >
+              <span>AdMob Center</span>
+              <span className="text-neutral-400 text-[11px]">Alt+M</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('admob');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>AdMob</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('ad-units');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Ad Units</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('placement');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Ad Placement</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('consent');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Consent & Privacy</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('test-ads');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Test Ads</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('monetization');
+                useMonetizationStore.getState().setActiveTab('diagnostics');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>Monetization Diagnostics</span>
             </button>
           </div>
         )}

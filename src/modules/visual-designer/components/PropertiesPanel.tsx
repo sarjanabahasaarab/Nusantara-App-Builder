@@ -597,6 +597,138 @@ export const PropertiesPanel: React.FC = () => {
                 </div>
               </>
             )}
+
+            {/* ADMOB & MONETIZATION PROPERTIES (Phase 9) */}
+            {['admobBanner', 'admobInterstitial', 'admobRewarded', 'admobNative'].includes(
+              selectedComponent.type
+            ) && (
+              <>
+                <div className="p-2.5 bg-amber-950/20 border border-amber-800/60 rounded-lg text-xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-amber-300 uppercase text-[10px] tracking-wider">
+                      AdMob Integration Settings
+                    </span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">
+                      Phase 9
+                    </span>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                      {isIndo ? 'Ad Unit ID Android' : 'Android Ad Unit ID'}
+                    </label>
+                    <input
+                      type="text"
+                      value={p.adUnitId || ''}
+                      onChange={(e) => handlePropChange('adUnitId', e.target.value)}
+                      placeholder="ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY"
+                      className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-amber-300 font-mono focus:outline-hidden focus:border-amber-500"
+                    />
+                  </div>
+
+                  {selectedComponent.type === 'admobBanner' && (
+                    <>
+                      <div>
+                        <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                          {isIndo ? 'Ukuran Banner (AdSize)' : 'Banner Size'}
+                        </label>
+                        <select
+                          value={p.adSize || 'BANNER'}
+                          onChange={(e) => handlePropChange('adSize', e.target.value)}
+                          className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                        >
+                          <option value="BANNER">Standard Banner (320x50)</option>
+                          <option value="LARGE_BANNER">Large Banner (320x100)</option>
+                          <option value="MEDIUM_RECTANGLE">Medium Rectangle (300x250)</option>
+                          <option value="FULL_BANNER">Full Banner (468x60)</option>
+                          <option value="LEADERBOARD">Leaderboard (728x90)</option>
+                          <option value="SMART_BANNER">Smart / Adaptive Banner</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                          {isIndo ? 'Posisi Penempatan' : 'Position'}
+                        </label>
+                        <select
+                          value={p.adPosition || 'bottom'}
+                          onChange={(e) => handlePropChange('adPosition', e.target.value)}
+                          className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                        >
+                          <option value="bottom">{isIndo ? 'Bagian Bawah (Bottom)' : 'Bottom'}</option>
+                          <option value="top">{isIndo ? 'Bagian Atas (Top)' : 'Top'}</option>
+                          <option value="custom">{isIndo ? 'Kustom / Dalam Alur Konten' : 'Custom Flow'}</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {selectedComponent.type === 'admobInterstitial' && (
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        {isIndo ? 'Pemicu Iklan (Trigger)' : 'Ad Trigger'}
+                      </label>
+                      <select
+                        value={p.adTrigger || 'after_navigation'}
+                        onChange={(e) => handlePropChange('adTrigger', e.target.value)}
+                        className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                      >
+                        <option value="after_navigation">{isIndo ? 'Setelah Navigasi Layar' : 'After Navigation'}</option>
+                        <option value="after_page">{isIndo ? 'Setelah Pergantian Halaman' : 'After Page'}</option>
+                        <option value="after_action">{isIndo ? 'Setelah Aksi Tombol' : 'After Action'}</option>
+                        <option value="manual">{isIndo ? 'Manual / Kode Program' : 'Manual / Code'}</option>
+                      </select>
+                    </div>
+                  )}
+
+                  {selectedComponent.type === 'admobRewarded' && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                          {isIndo ? 'Nama Hadiah' : 'Reward Name'}
+                        </label>
+                        <input
+                          type="text"
+                          value={p.adRewardName || 'Coin'}
+                          onChange={(e) => handlePropChange('adRewardName', e.target.value)}
+                          className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                          {isIndo ? 'Jumlah Hadiah' : 'Reward Amount'}
+                        </label>
+                        <input
+                          type="number"
+                          min={1}
+                          value={p.adRewardAmount || 100}
+                          onChange={(e) => handlePropChange('adRewardAmount', Number(e.target.value))}
+                          className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedComponent.type === 'admobNative' && (
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        {isIndo ? 'Templat Native Ads' : 'Native Ad Template'}
+                      </label>
+                      <select
+                        value={p.nativeTemplate || 'medium'}
+                        onChange={(e) => handlePropChange('nativeTemplate', e.target.value)}
+                        className="w-full bg-neutral-950 border border-neutral-700/80 rounded px-2.5 py-1.5 text-xs text-neutral-100 focus:outline-hidden focus:border-blue-500"
+                      >
+                        <option value="small">Small Template (Compact)</option>
+                        <option value="medium">Medium Template (Standard Card)</option>
+                        <option value="large">Large Template (Feature Media)</option>
+                        <option value="custom">Custom Template Layout</option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         )}
 

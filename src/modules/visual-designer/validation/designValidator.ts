@@ -34,6 +34,10 @@ export const COMPONENT_ID_PREFIXES: Record<ComponentType, string> = {
   divider: 'view_divider',
   spacer: 'space_gap',
   progressBar: 'pb_progress',
+  admobBanner: 'ad_banner',
+  admobInterstitial: 'ad_interstitial',
+  admobRewarded: 'ad_rewarded',
+  admobNative: 'ad_native',
 };
 
 /**

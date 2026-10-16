@@ -312,6 +312,21 @@ function renderComponentToXml(
       return `${indent}<ProgressBar\n${attrs.map((a) => `${childIndent}${a}`).join('\n')} />`;
     }
 
+    case 'admobBanner': {
+      attrs.push(`ads:adSize="${escapeXml(p.adSize || 'BANNER')}"`);
+      attrs.push(`ads:adUnitId="${escapeXml(p.adUnitId || 'ca-app-pub-3940256099942544/6300978111')}"`);
+      return `${indent}<com.google.android.gms.ads.AdView\n${attrs.map((a) => `${childIndent}${a}`).join('\n')} />`;
+    }
+
+    case 'admobNative': {
+      return `${indent}<com.google.android.gms.ads.nativead.NativeAdView\n${attrs.map((a) => `${childIndent}${a}`).join('\n')}>\n\n${indent}    <!-- AdMob Native Ad Container (${escapeXml(p.nativeTemplate || 'medium')}) -->\n${indent}    <LinearLayout\n${indent}        android:layout_width="match_parent"\n${indent}        android:layout_height="wrap_content"\n${indent}        android:orientation="vertical" />\n\n${indent}</com.google.android.gms.ads.nativead.NativeAdView>`;
+    }
+
+    case 'admobInterstitial':
+    case 'admobRewarded': {
+      return `${indent}<!-- AdMob Controller: ${escapeXml(comp.type)} (Unit: ${escapeXml(p.adUnitId || '')}) -->\n${indent}<View\n${attrs.map((a) => `${childIndent}${a}`).join('\n')}\n${childIndent}android:visibility="gone" />`;
+    }
+
     default: {
       return `${indent}<!-- Unrecognized Component: ${escapeXml(comp.type)} -->\n${indent}<View\n${attrs.map((a) => `${childIndent}${a}`).join('\n')} />`;
     }

@@ -88,8 +88,6 @@ export const Sidebar: React.FC = () => {
       id: 'monetization',
       label: t.sidebar.monetization,
       icon: DollarSign,
-      isComingSoon: true,
-      phase: 6,
     },
     {
       id: 'extensions',
