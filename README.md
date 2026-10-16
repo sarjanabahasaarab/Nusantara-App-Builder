@@ -24,7 +24,22 @@
   - **Bi-directional Visual ↔ Code Sync**: Sinkronisasi dua arah antara file layout Android XML dan model Visual Designer dengan deteksi modifikasi manual dan preservasi aman elemen kustom.
   - **Diagnostics & Problems Panel**: Deteksi kesalahan sintaks XML real-time, validasi `@+id/`, deteksi ID duplikat, dan pemeriksaan dasar kode Kotlin dengan navigasi klik langsung ke nomor baris.
   - **Sandboxed Terminal**: Eksekusi perintah Gradle (`./gradlew assembleDebug`, `clean`, `check`) dan ADB menggunakan whitelist aman berbasis array argumen, pembatalan proses, dan streaming output.
-  - **Safe Atomic Save & Auto-Save**: Penyimpanan berkas terjamin UTF-8 dengan status Saved/Saving/Unsaved dan opsi auto-save (Off, After Delay, On Focus).
+  - **Phase 5: Website to APK & AAB**:
+  - Konversi website online (HTTPS) atau folder HTML lokal menjadi proyek Android WebView native siap kompilasi.
+  - Wizard 8-langkah: Source Selector, Structural Analyzer, App Info & Package Normalizer, Icon/Splash Screen Android 12+, WebView Settings, Domain Security Allowlist, System Permissions, dan Interactive Simulator.
+- **Phase 6: App Logic, Events, Database & API**:
+  - **Logic Designer**: Visual flow node-based logic builder dengan event handler (`onClick`, `onLongPress`, `onChange`, lifecycle).
+  - **Zero-eval SafeExpressionEngine**: Sandboxed AST expression evaluator (`username != ""`, `totalHarga > 100000`, `isLoggedIn == true`).
+  - **SQLite Database Service**: Perancangan skema tabel, validasi tipe kolom SQLite, dan generator query berparameter (`?`) aman terhadap SQL injection.
+  - **REST API Client**: Konfigurasi endpoint HTTP (GET, POST, PUT, PATCH, DELETE) dengan JSON mapping dan generator native Kotlin Coroutine `ApiClient.kt`.
+- **Phase 7: Professional Android Build Engine**:
+  - **Build Center**: Antarmuka terpadu untuk validasi proyek, kompilasi Debug APK, Release APK bertanda tangan, dan Release AAB (Android App Bundle).
+  - **Real Android Toolchain Execution**: Eksekusi `gradlew.bat` berbasis array argumen aman dan working directory proyek Android, tanpa eksekusi shell string arbitrer.
+  - **Toolchain & Windows Path Detection**: Deteksi otomatis `ANDROID_HOME`, `ANDROID_SDK_ROOT`, `JAVA_HOME`, platform SDK 34/35, build-tools, `adb.exe`, dan Java 17+.
+  - **Pre-Build Validator**: Tiga tingkatan validasi (Quick, Full, Build) untuk mendeteksi galat sebelum kompilasi dimulai.
+  - **Live Terminal & Error Parser**: Output terminal real-time dengan penyamaran password otomatis (`password=********`) dan navigasi klik langsung ke nomor baris editor.
+  - **Signing & Keystore Manager**: Generator sertifikat RSA 2048-bit resmi untuk release build dengan skema V1 dan V2.
+  - **Artifact & Device Manager**: Pelacakan biner output (`.apk` / `.aab`), instalasi langsung ke perangkat HP via ADB (`adb install`), peluncuran aplikasi, dan live Logcat viewer.
 
 ---
 
@@ -46,6 +61,22 @@
   - **Diagnostics & Problems Panel**: Real-time XML structural validation, duplicate ID warnings, and Kotlin syntax checking with click-to-line navigation.
   - **Sandboxed Terminal**: Secure whitelisted process runner for Gradle tasks and ADB with argument array security and cancellation support.
   - **Safe Atomic Save & Auto-Save**: Resilient UTF-8 file saving with status indicators and flexible auto-save modes.
+- **Phase 5: Website to APK & AAB**:
+  - Convert online HTTPS websites or local web folders into complete, buildable native Android WebView projects.
+  - 8-step wizard: Source Selection, Structural Analyzer, Package ID Normalization, Icon/Splash Screen, WebView Engine configuration, Domain Security Allowlist, App Permissions, and Live Device Preview.
+- **Phase 6: App Logic, Events, Database & API**:
+  - **Logic Designer**: Visual flow node-based logic builder with event handlers (`onClick`, `onLongPress`, `onChange`, lifecycle).
+  - **Zero-eval SafeExpressionEngine**: Sandboxed AST expression evaluator (`username != ""`, `totalHarga > 100000`, `isLoggedIn == true`).
+  - **SQLite Database Service**: Visual schema design, parameterized query generator (`?`) preventing SQL injection.
+  - **REST API Client**: HTTP endpoint configuration (GET, POST, PUT, DELETE) with native Kotlin Coroutines `ApiClient.kt`.
+- **Phase 7: Professional Android Build Engine**:
+  - **Build Center**: Unified dashboard for pre-build validation, Debug APK build, signed Release APK, and Release AAB.
+  - **Real Android Toolchain Execution**: Safe argument array execution of `gradlew.bat` with enforced working directory and zero shell string concatenation.
+  - **Windows & Toolchain Detection**: Auto-detection of `ANDROID_HOME`, `JAVA_HOME`, platforms, build tools, and Java 17+.
+  - **Pre-Build Validator**: 3-level project validation (Quick, Full, Build) preventing compilation failures before execution.
+  - **Terminal Output & Error Parser**: Real-time streaming log with automatic secret masking (`password=********`) and direct click-to-editor navigation.
+  - **Signing & Keystore Manager**: Official RSA 2048-bit keystore generation with V1/V2 signing schemes.
+  - **Artifact & Device Manager**: Binary artifact discovery (`.apk`/`.aab`), ADB deployment (`adb install`), app launcher, and live Logcat viewer.
 
 ---
 

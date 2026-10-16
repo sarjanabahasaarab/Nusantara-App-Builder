@@ -2,8 +2,43 @@
 
 Seluruh perubahan penting pada proyek ini dicatat dalam berkas ini.
 
-## [0.4.0-alpha] - 2026-10-15
-### Phase 4: Professional Multi-Tab Code Editor & Android Tooling
+## [0.7.0-alpha] - 2026-10-15
+### Phase 7: Professional Android Build Engine & Toolchain
+
+#### Ditambahkan / Added
+- **Build Center**: Halaman terpusat untuk membangun aplikasi Android dengan dukungan Debug APK, Release APK bertanda tangan, dan Release AAB (Android App Bundle).
+- **Toolchain & Windows Path Detection**: Deteksi otomatis `ANDROID_HOME`, `ANDROID_SDK_ROOT`, `JAVA_HOME`, `PATH`, lokasi SDK umum Windows (`%LOCALAPPDATA%\Android\Sdk`), Java JDK 17/21 LTS, dan Gradle Wrapper tanpa memodifikasi registry secara otomatis.
+- **Pre-Build Project Validator**: Tiga tingkatan validasi (Quick, Full, Build) untuk memeriksa package ID, struktur Gradle, `AndroidManifest.xml` (`android:exported`), SDK levels, dan sumber daya sebelum kompilasi dimulai.
+- **Gradle Runner Aman**: Eksekusi `gradlew.bat` berbasis array argumen (`["assembleDebug", "--stacktrace"]`) tanpa penggabungan shell string untuk mencegah command injection.
+- **Masking Kredensial**: Penyamaran otomatis kata sandi, token API, dan private key pada log terminal (`password=********`).
+- **Error Parser Cerdas**: Pemetaan otomatis pesan galat kompilasi Kotlin, Java, AAPT2, dan Manifest dengan navigasi klik langsung ke nomor baris pada Editor Kode.
+- **Signing & Keystore Manager**: Generator sertifikat RSA 2048-bit resmi untuk release build dengan skema penandatanganan V1 dan V2.
+- **Artifact Manager**: Pelacakan berkas biner output (`.apk` / `.aab`), verifikasi ukuran berkas, salin path, dan pembuka folder Windows Explorer.
+- **Device Manager & ADB**: Pemindaian perangkat fisik dan emulator yang terhubung (`adb devices`), pemasangan APK (`adb install`), peluncuran aplikasi, dan viewer streaming Logcat lokal.
+- **Build Settings & RAM Warning**: Konfigurasi Gradle build cache, parallel build, offline mode, dan peringatan alokasi memori RAM.
+- **Wisaya First Run Setup**: Panduan konfigurasi awal sistem untuk memastikan kesiapan toolchain.
+- **Test Suite**: 17 pengujian unit dan keamanan baru (Command injection, Secret masking, Path traversal, Error parsing).
+
+## [0.6.0-alpha] - 2026-10-15
+### Phase 6: App Logic, Events, Database & API
+
+#### Ditambahkan / Added
+- **Logic Designer**: Visual flow builder berbasis node untuk merancang event (`onClick`, `onLongPress`, `onChange`, lifecycle).
+- **SafeExpressionEngine**: Evaluator ekspresi AST sandboxed zero-eval (`username != ""`, `totalHarga > 100000`, `isLoggedIn == true`).
+- **SQLite Database Service**: Perancang skema tabel SQLite, query builder berparameter (`?`) aman terhadap SQL injection, dan generator layar CRUD otomatis.
+- **REST & JSON API Client**: Konfigurasi endpoint HTTP dengan response mapping dan generator native Kotlin Coroutines `ApiClient.kt`.
+- **KotlinLogicGenerator**: Generator controller native Android (`DatabaseHelper.kt`, `ApiClient.kt`, `AppLogicController.kt`).
+
+## [0.5.0-alpha] - 2026-10-15
+### Phase 5: Website to APK & AAB (Native WebView Engine)
+
+#### Ditambahkan / Added
+- **Website to App Wizard**: 8 langkah konversi website online (HTTPS) atau folder web lokal menjadi proyek Android native.
+- **Website Structural Analyzer**: Analisis mendalam protokol, hostname, entry point, dukungan JavaScript, sumber daya eksternal, dan ukuran aset lokal.
+- **App Icon & Android 12+ Splash Screen**: Konfigurasi ikon adaptif dengan safe-area guide dan SplashScreen API native tanpa delay buatan.
+- **WebView Engine Settings**: Konfigurasi JavaScript, DOM storage, zoom, custom user-agent, pull-to-refresh, dan halaman offline terintegrasi.
+- **Domain Security Allowlist**: Pengelolaan daftar domain yang diizinkan dan perutean tautan eksternal ke browser Chrome.
+- **Interactive Simulator**: Frame pratinjau ponsel (Pixel 7, Galaxy S23, Tablet) dengan pengujian splash screen, offline page, dan simulasi tombol kembali Android (`webView.goBack()`).
 
 #### Ditambahkan / Added
 - **Monaco Code Editor**: Editor kode profesional berbasis Monaco dengan dukungan syntax highlighting untuk Kotlin, Java, XML, Gradle, Groovy, Properties, JSON, HTML, CSS, JavaScript, dan Markdown.

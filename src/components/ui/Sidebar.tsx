@@ -75,10 +75,8 @@ export const Sidebar: React.FC = () => {
     },
     {
       id: 'build-run',
-      label: t.sidebar.buildRun,
+      label: lang === 'id' ? 'Build Center (APK/AAB)' : 'Build Center (APK/AAB)',
       icon: PlaySquare,
-      isComingSoon: true,
-      phase: 5,
     },
     {
       id: 'monetization',

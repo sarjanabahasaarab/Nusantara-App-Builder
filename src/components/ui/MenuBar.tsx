@@ -8,6 +8,7 @@ import { useTranslation } from '../../modules/localization/useTranslation';
 import { useUiStore } from '../../store/uiStore';
 import { useProjectStore } from '../../store/projectStore';
 import { useSettingsStore } from '../../store/settingsStore';
+import { useBuildEngineStore } from '../../modules/build-engine/store/buildEngineStore';
 
 export const MenuBar: React.FC = () => {
   const { t } = useTranslation();
@@ -291,6 +292,106 @@ export const MenuBar: React.FC = () => {
               }`}
             >
               <span>{t.menu.cleanBuild}</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* BUILD MENU (Phase 7 Build Center) */}
+      <div className="relative">
+        <button
+          onClick={() => handleMenuClick('build')}
+          className={`px-2.5 py-1 rounded text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer ${
+            openMenu === 'build' ? 'bg-neutral-800 text-white' : ''
+          }`}
+        >
+          Build
+        </button>
+        {openMenu === 'build' && (
+          <div className="absolute left-0 top-full mt-1 w-60 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
+            <button
+              onClick={() => executeAction(() => setActiveView('build-run'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer font-semibold"
+            >
+              <span>Build Center (Android Engine)</span>
+              <span className="text-neutral-400 text-[11px]">Ctrl+F9</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().validateProject(activeProject!, useProjectStore.getState().files, 'quick');
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>{t.menu.validateProject}</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().startBuild(activeProject!, useProjectStore.getState().files, 'assembleDebug');
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Build Debug APK</span>
+              <span className="text-neutral-400 text-[11px]">assembleDebug</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().startBuild(activeProject!, useProjectStore.getState().files, 'assembleRelease');
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Build Release APK</span>
+              <span className="text-neutral-400 text-[11px]">assembleRelease</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().startBuild(activeProject!, useProjectStore.getState().files, 'bundleRelease');
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Build Release AAB</span>
+              <span className="text-neutral-400 text-[11px]">bundleRelease</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().cleanProject(activeProject!);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Clean Project (gradlew clean)</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('build-run');
+                useBuildEngineStore.getState().rebuildProject(activeProject!, useProjectStore.getState().files);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Rebuild Project</span>
             </button>
           </div>
         )}

@@ -207,6 +207,12 @@ export const DashboardView: React.FC = () => {
               {t.dashboard.checkToolchainButton}
             </button>
             <button
+              onClick={() => setActiveView('build-run')}
+              className="text-[11px] text-blue-400 hover:text-blue-300 font-semibold transition-colors cursor-pointer"
+            >
+              Build Center (APK/AAB) →
+            </button>
+            <button
               onClick={() => setActiveView('android-sdk')}
               className="text-[11px] text-neutral-400 hover:text-neutral-200 transition-colors cursor-pointer"
             >

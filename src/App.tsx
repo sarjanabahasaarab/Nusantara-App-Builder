@@ -23,6 +23,7 @@ import { VisualDesignerWorkspace } from './modules/visual-designer/VisualDesigne
 import { CodeEditorWorkspace } from './modules/code-editor/CodeEditorWorkspace';
 import { WebsiteToApkWorkspace } from './modules/website-to-apk/components/WebsiteToApkWorkspace';
 import { LogicDesignerWorkspace } from './modules/logic-designer/components/LogicDesignerWorkspace';
+import { BuildCenterWorkspace } from './modules/build-engine/components/BuildCenterWorkspace';
 import { ComingSoonView } from './modules/contracts/ComingSoonView';
 
 // Stores
@@ -63,6 +64,7 @@ export default function App() {
       case 'website-to-apk':
         return <WebsiteToApkWorkspace />;
       case 'build-run':
+        return <BuildCenterWorkspace />;
       case 'monetization':
       case 'extensions':
         return <ComingSoonView view={activeView} />;

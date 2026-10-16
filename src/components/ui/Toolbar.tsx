@@ -110,14 +110,13 @@ export const Toolbar: React.FC = () => {
             </button>
             <button
               onClick={() => {
-                setActiveView('project-detail');
-                useProjectStore.getState().runDebugBuild();
+                setActiveView('build-run');
               }}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white transition-colors cursor-pointer text-xs font-medium shadow-xs"
-              title={t.toolbar.buildDebug}
+              title="Build Center (APK/AAB)"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
-              <span className="hidden md:inline">{t.toolbar.buildDebug}</span>
+              <span className="hidden md:inline">Build Center</span>
             </button>
           </>
         )}
