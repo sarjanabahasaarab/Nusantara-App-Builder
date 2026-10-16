@@ -42,6 +42,7 @@ import { useTranslation } from '../../localization/useTranslation';
 import { KeystoreCreatorModal } from './KeystoreCreatorModal';
 import { SdkInstallerModal } from './SdkInstallerModal';
 import { FirstRunSetupModal } from './FirstRunSetupModal';
+import { SigningService } from '../services/signingService';
 import { BuildVariant, BuildTarget, ValidationLevel } from '../types';
 
 export const BuildCenterWorkspace: React.FC = () => {
@@ -104,7 +105,7 @@ export const BuildCenterWorkspace: React.FC = () => {
     if (activeProject) {
       loadProjectData(activeProject);
     } else if (projects.length > 0) {
-      selectProject(projects[0]);
+      selectProject(projects[0].id);
     }
   }, [activeProject?.id, selectProject]);
 

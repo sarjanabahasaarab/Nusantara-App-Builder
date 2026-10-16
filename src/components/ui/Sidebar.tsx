@@ -13,6 +13,7 @@ import {
   Globe2,
   Cpu,
   PlaySquare,
+  PackageCheck,
   DollarSign,
   Blocks,
   Settings as SettingsIcon,
@@ -77,6 +78,11 @@ export const Sidebar: React.FC = () => {
       id: 'build-run',
       label: lang === 'id' ? 'Build Center (APK/AAB)' : 'Build Center (APK/AAB)',
       icon: PlaySquare,
+    },
+    {
+      id: 'release-center',
+      label: lang === 'id' ? 'Release Center (APK/AAB)' : 'Release Center (APK/AAB)',
+      icon: PackageCheck,
     },
     {
       id: 'monetization',

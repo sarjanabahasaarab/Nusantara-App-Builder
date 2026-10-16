@@ -9,6 +9,7 @@ import { useUiStore } from '../../store/uiStore';
 import { useProjectStore } from '../../store/projectStore';
 import { useSettingsStore } from '../../store/settingsStore';
 import { useBuildEngineStore } from '../../modules/build-engine/store/buildEngineStore';
+import { useReleaseCenterStore } from '../../modules/release-center/store/releaseCenterStore';
 
 export const MenuBar: React.FC = () => {
   const { t } = useTranslation();
@@ -392,6 +393,139 @@ export const MenuBar: React.FC = () => {
               }`}
             >
               <span>Rebuild Project</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* RELEASE MENU (Phase 8 Release Center) */}
+      <div className="relative">
+        <button
+          onClick={() => handleMenuClick('release')}
+          className={`px-2.5 py-1 rounded text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer ${
+            openMenu === 'release' ? 'bg-neutral-800 text-white' : ''
+          }`}
+        >
+          {t.releaseCenter?.signing ? 'Release' : 'Release'}
+        </button>
+        {openMenu === 'release' && (
+          <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
+            <button
+              onClick={() => executeAction(() => setActiveView('release-center'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer font-semibold"
+            >
+              <span>Release Center (APK & AAB)</span>
+              <span className="text-neutral-400 text-[11px]">Shift+F9</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(1);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>1. App Information</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(2);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>2. Version Management</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(3);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>3. Build Profile</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setIsSigningModalOpen(true);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>4. Signing Manager (Keystore)</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(5);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>5. Pre-Release Validation Gate</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(6);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>6. Build Release Artifacts</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(7);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>7. Artifact Inspector</span>
+            </button>
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setStep(8);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>8. Export & Git Tagging</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              disabled={!activeProject}
+              onClick={() => executeAction(() => {
+                setActiveView('release-center');
+                useReleaseCenterStore.getState().setIsHistoryModalOpen(true);
+              })}
+              className={`w-full text-left px-3 py-1.5 flex justify-between ${
+                activeProject ? 'hover:bg-blue-600 hover:text-white cursor-pointer' : 'text-neutral-400 cursor-not-allowed'
+              }`}
+            >
+              <span>Release History & Audit</span>
             </button>
           </div>
         )}

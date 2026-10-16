@@ -19,6 +19,7 @@ interface ProjectState {
   projects: ProjectMetadata[];
   activeProject: ProjectMetadata | null;
   activeFiles: ProjectFile[];
+  files: ProjectFile[];
   activeFile: ProjectFile | null;
   searchQuery: string;
   isLoading: boolean;
@@ -33,6 +34,7 @@ interface ProjectState {
   loadProjects: () => Promise<void>;
   createProject: (input: CreateProjectInput) => Promise<{ success: boolean; validation?: ValidationResult; error?: string }>;
   openProject: (projectId: string) => Promise<boolean>;
+  selectProject: (projectId: string) => Promise<boolean>;
   closeActiveProject: () => void;
   setActiveFile: (file: ProjectFile | null) => void;
   setSearchQuery: (query: string) => void;
@@ -40,6 +42,7 @@ interface ProjectState {
   deleteProjectPermanently: (projectId: string) => Promise<void>;
   validateCurrentProject: () => Promise<ProjectValidationReport | null>;
   runDebugBuild: () => Promise<BuildProcessOutput | null>;
+  updateProjectMetadata: (updates: Partial<ProjectMetadata>) => void;
   clearValidationReport: () => void;
   clearBuildOutput: () => void;
   clearError: () => void;
@@ -49,6 +52,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   projects: [],
   activeProject: null,
   activeFiles: [],
+  files: [],
   activeFile: null,
   searchQuery: '',
   isLoading: false,
@@ -117,6 +121,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
         projects: updatedList,
         activeProject: project,
         activeFiles: files,
+        files: files,
         activeFile: files.find((f) => f.name === 'MainActivity.kt') || files[0] || null,
         validationReport: null,
         buildOutput: null,
@@ -132,10 +137,15 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     }
   },
 
+  selectProject: async (projectId: string) => {
+    return get().openProject(projectId);
+  },
+
   closeActiveProject: () => {
     set({
       activeProject: null,
       activeFiles: [],
+      files: [],
       activeFile: null,
       validationReport: null,
       buildOutput: null,
@@ -201,6 +211,19 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
     } catch (err: unknown) {
       set({ isBuilding: false });
       return null;
+    }
+  },
+
+  updateProjectMetadata: (updates: Partial<ProjectMetadata>) => {
+    const active = get().activeProject;
+    if (!active) return;
+    const updated = { ...active, ...updates, updatedAt: new Date().toISOString() };
+    const updatedProjects = get().projects.map((p) => (p.id === active.id ? updated : p));
+    set({ activeProject: updated, projects: updatedProjects });
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem(`nusantara_project_${active.id}`, JSON.stringify(updated));
+      } catch {}
     }
   },
 

@@ -538,15 +538,9 @@ export const useLogicStore = create<LogicDesignerState>((set, get) => ({
   generateCrudScreens: (table) => {
     const screens = DatabaseService.generateCrudScreens(table);
     // Add screens to VisualDesigner store
-    const visualStore = useVisualDesignerStore.getState();
+    const visualStore = useDesignerStore.getState();
     for (const screen of screens) {
-      visualStore.addScreen({
-        name: screen.name,
-        layoutFileName: screen.layoutFileName,
-        orientation: screen.orientation,
-        devicePreset: screen.devicePreset,
-        backgroundColor: screen.backgroundColor,
-      });
+      visualStore.addScreen(screen.name, screen.layoutFileName);
     }
   },
 

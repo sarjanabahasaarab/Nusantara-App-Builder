@@ -46,7 +46,7 @@ export interface ProjectMetadata {
   versionName: string;
   targetUrl?: string; // For webview starter
   formatVersion: '2.0';
-  filesCount: number;
+  filesCount?: number;
   toolchainVersion?: {
     agp: string;
     gradle: string;

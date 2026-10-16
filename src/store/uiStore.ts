@@ -16,6 +16,7 @@ export type ActiveView =
   | 'website-to-apk'
   | 'android-sdk'
   | 'build-run'
+  | 'release-center'
   | 'monetization'
   | 'extensions'
   | 'settings';

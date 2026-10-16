@@ -64,6 +64,7 @@ export type ActionType =
   | 'open_url'
   // UI
   | 'show_message'
+  | 'ui_show_message'
   | 'show_dialog'
   | 'show_loading'
   | 'hide_loading'
@@ -196,13 +197,14 @@ export interface DatabaseSchema {
 export type QueryOperation = 'SELECT' | 'INSERT' | 'UPDATE' | 'DELETE' | 'COUNT';
 
 export interface QueryCondition {
+  id?: string;
   column: string;
   operator: '=' | '!=' | '>' | '<' | '>=' | '<=' | 'LIKE' | 'IN';
   valueExpression: string; // Can be a variable or literal
 }
 
 export interface SqlQueryConfig {
-  id: string;
+  id?: string;
   table: string;
   operation: QueryOperation;
   selectedColumns?: string[];

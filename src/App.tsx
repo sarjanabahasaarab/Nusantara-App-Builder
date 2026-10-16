@@ -24,6 +24,7 @@ import { CodeEditorWorkspace } from './modules/code-editor/CodeEditorWorkspace';
 import { WebsiteToApkWorkspace } from './modules/website-to-apk/components/WebsiteToApkWorkspace';
 import { LogicDesignerWorkspace } from './modules/logic-designer/components/LogicDesignerWorkspace';
 import { BuildCenterWorkspace } from './modules/build-engine/components/BuildCenterWorkspace';
+import { ReleaseCenterWorkspace } from './modules/release-center/components/ReleaseCenterWorkspace';
 import { ComingSoonView } from './modules/contracts/ComingSoonView';
 
 // Stores
@@ -65,6 +66,8 @@ export default function App() {
         return <WebsiteToApkWorkspace />;
       case 'build-run':
         return <BuildCenterWorkspace />;
+      case 'release-center':
+        return <ReleaseCenterWorkspace />;
       case 'monetization':
       case 'extensions':
         return <ComingSoonView view={activeView} />;
