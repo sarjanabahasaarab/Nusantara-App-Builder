@@ -93,8 +93,6 @@ export const Sidebar: React.FC = () => {
       id: 'extensions',
       label: t.sidebar.extensions,
       icon: Blocks,
-      isComingSoon: true,
-      phase: 7,
     },
     {
       id: 'settings',

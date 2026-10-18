@@ -7,8 +7,8 @@ import { generateProjectFiles, AVAILABLE_TEMPLATES } from '../modules/project-ma
 import { CreateProjectInput } from '../types/project';
 
 describe('Android Template Generator', () => {
-  it('provides all 3 required templates', () => {
-    expect(AVAILABLE_TEMPLATES).toHaveLength(3);
+  it('provides all 3 required templates and new production templates', () => {
+    expect(AVAILABLE_TEMPLATES.length).toBeGreaterThanOrEqual(3);
     const ids = AVAILABLE_TEMPLATES.map((t) => t.id);
     expect(ids).toContain('empty-android');
     expect(ids).toContain('basic-activity');

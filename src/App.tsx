@@ -26,7 +26,9 @@ import { LogicDesignerWorkspace } from './modules/logic-designer/components/Logi
 import { BuildCenterWorkspace } from './modules/build-engine/components/BuildCenterWorkspace';
 import { ReleaseCenterWorkspace } from './modules/release-center/components/ReleaseCenterWorkspace';
 import { MonetizationWorkspace } from './modules/monetization/components/MonetizationWorkspace';
-import { ComingSoonView } from './modules/contracts/ComingSoonView';
+import { PluginManagerWorkspace } from './modules/plugins/components/PluginManagerWorkspace';
+import { ThemeManagerModal } from './modules/themes/components/ThemeManagerModal';
+import { PluginPermissionModal } from './modules/plugins/components/PluginPermissionModal';
 
 // Stores
 import { useUiStore } from './store/uiStore';
@@ -72,7 +74,7 @@ export default function App() {
       case 'monetization':
         return <MonetizationWorkspace />;
       case 'extensions':
-        return <ComingSoonView view={activeView} />;
+        return <PluginManagerWorkspace />;
       default:
         return <DashboardView />;
     }
@@ -104,6 +106,8 @@ export default function App() {
       <ProjectWizardModal />
       <OpenProjectModal />
       <DeleteConfirmModal />
+      <ThemeManagerModal />
+      <PluginPermissionModal />
 
       {/* Global Toast Notification */}
       {toastMessage && (

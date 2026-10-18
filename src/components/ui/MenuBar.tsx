@@ -11,9 +11,10 @@ import { useSettingsStore } from '../../store/settingsStore';
 import { useBuildEngineStore } from '../../modules/build-engine/store/buildEngineStore';
 import { useReleaseCenterStore } from '../../modules/release-center/store/releaseCenterStore';
 import { useMonetizationStore } from '../../modules/monetization/store/monetizationStore';
+import { useThemeStore } from '../../modules/themes/store/themeStore';
 
 export const MenuBar: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const menuBarRef = useRef<HTMLDivElement>(null);
 
@@ -214,6 +215,13 @@ export const MenuBar: React.FC = () => {
             >
               <span>{theme === 'dark' ? t.settings.themeLight : t.settings.themeDark}</span>
               <span className="text-neutral-400 text-[11px]">Alt+T</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => useThemeStore.getState().setIsThemeModalOpen(true))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{lang === 'id' ? 'Theme Manager (Token & Gaya)' : 'Theme Manager (Tokens & Styles)'}</span>
+              <span className="text-neutral-400 text-[11px]">Shift+T</span>
             </button>
             <button
               onClick={() => executeAction(() => showToast(t.menu.fullscreen))}
@@ -608,6 +616,54 @@ export const MenuBar: React.FC = () => {
               className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
             >
               <span>Monetization Diagnostics</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* EXTENSIONS & PLUGINS MENU (Phase 10) */}
+      <div className="relative">
+        <button
+          onClick={() => handleMenuClick('extensions')}
+          className={`px-2.5 py-1 rounded text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer ${
+            openMenu === 'extensions' ? 'bg-neutral-800 text-white' : ''
+          }`}
+        >
+          {lang === 'id' ? 'Ekstensi' : 'Extensions'}
+        </button>
+        {openMenu === 'extensions' && (
+          <div className="absolute left-0 top-full mt-1 w-64 bg-neutral-900 border border-neutral-700 shadow-xl rounded py-1 z-50 text-neutral-200">
+            <button
+              onClick={() => executeAction(() => setActiveView('extensions'))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer font-semibold"
+            >
+              <span>{lang === 'id' ? 'Manajer Ekstensi & Plugin' : 'Plugin & Extension Manager'}</span>
+              <span className="text-neutral-400 text-[11px]">Alt+P</span>
+            </button>
+            <div className="border-t border-neutral-800 my-1" />
+            <button
+              onClick={() => executeAction(() => useThemeStore.getState().setIsThemeModalOpen(true))}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{lang === 'id' ? 'Theme Manager (Token & Gaya)' : 'Theme Manager (Design Tokens)'}</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('extensions');
+                showToast(lang === 'id' ? 'Komponen SDK & Visual Registry' : 'Component SDK & Visual Registry');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{lang === 'id' ? 'Component SDK & Registry' : 'Component SDK & Registry'}</span>
+            </button>
+            <button
+              onClick={() => executeAction(() => {
+                setActiveView('extensions');
+                showToast(lang === 'id' ? 'Audit Keamanan & Perizinan Sandbox' : 'Security Audit & Permissions');
+              })}
+              className="w-full text-left px-3 py-1.5 hover:bg-blue-600 hover:text-white flex justify-between cursor-pointer"
+            >
+              <span>{lang === 'id' ? 'Audit Izin Plugin' : 'Plugin Security & Permissions'}</span>
             </button>
           </div>
         )}

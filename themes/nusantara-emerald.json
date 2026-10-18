@@ -1,0 +1,40 @@
+{
+  "name": "Nusantara Emerald",
+  "version": "1.0.0",
+  "colors": {
+    "background": "#022c22",
+    "surface": "#064e3b",
+    "surfaceHover": "#065f46",
+    "border": "#047857",
+    "borderFocus": "#10b981",
+    "textPrimary": "#ecfdf5",
+    "textSecondary": "#a7f3d0",
+    "textMuted": "#6ee7b7",
+    "accent": "#059669",
+    "accentHover": "#047857",
+    "accentText": "#ffffff",
+    "sidebarBg": "#064e3b",
+    "toolbarBg": "#064e3b",
+    "canvasBg": "#022c22",
+    "editorBg": "#064e3b"
+  },
+  "typography": {
+    "fontFamilySans": "Plus Jakarta Sans, sans-serif",
+    "fontFamilyMono": "JetBrains Mono, monospace",
+    "baseSize": "14px",
+    "headingWeight": "700"
+  },
+  "spacing": {
+    "unit": 4,
+    "borderRadiusBase": "8px",
+    "borderRadiusLg": "12px",
+    "sidebarWidth": "240px"
+  },
+  "components": {
+    "buttonRadius": "8px",
+    "cardShadow": "0 4px 6px -1px rgb(0 0 0 / 0.2)",
+    "designerGridVisible": true,
+    "designerGridColor": "#047857",
+    "editorLineNumbers": true
+  }
+}

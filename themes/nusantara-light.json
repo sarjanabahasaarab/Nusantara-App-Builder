@@ -1,0 +1,40 @@
+{
+  "name": "Nusantara Light",
+  "version": "1.0.0",
+  "colors": {
+    "background": "#f8fafc",
+    "surface": "#ffffff",
+    "surfaceHover": "#f1f5f9",
+    "border": "#e2e8f0",
+    "borderFocus": "#2563eb",
+    "textPrimary": "#0f172a",
+    "textSecondary": "#475569",
+    "textMuted": "#94a3b8",
+    "accent": "#2563eb",
+    "accentHover": "#1d4ed8",
+    "accentText": "#ffffff",
+    "sidebarBg": "#f1f5f9",
+    "toolbarBg": "#ffffff",
+    "canvasBg": "#f8fafc",
+    "editorBg": "#ffffff"
+  },
+  "typography": {
+    "fontFamilySans": "Plus Jakarta Sans, sans-serif",
+    "fontFamilyMono": "JetBrains Mono, monospace",
+    "baseSize": "14px",
+    "headingWeight": "700"
+  },
+  "spacing": {
+    "unit": 4,
+    "borderRadiusBase": "8px",
+    "borderRadiusLg": "12px",
+    "sidebarWidth": "240px"
+  },
+  "components": {
+    "buttonRadius": "8px",
+    "cardShadow": "0 2px 4px 0 rgb(0 0 0 / 0.05)",
+    "designerGridVisible": true,
+    "designerGridColor": "#e2e8f0",
+    "editorLineNumbers": true
+  }
+}

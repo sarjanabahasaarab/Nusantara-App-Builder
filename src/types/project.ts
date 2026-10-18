@@ -3,7 +3,20 @@
  * Phase 2: Android Project Engine & Generator
  */
 
-export type ProjectTemplateId = 'empty-android' | 'basic-activity' | 'webview-starter';
+export type ProjectTemplateId =
+  | 'empty-android'
+  | 'basic-activity'
+  | 'webview-starter'
+  | 'blank-app'
+  | 'website-app'
+  | 'business-app'
+  | 'school-app'
+  | 'news-app'
+  | 'food-app'
+  | 'store-app'
+  | 'portfolio-app'
+  | 'api-app'
+  | 'sqlite-app';
 
 export interface ProjectTemplate {
   id: ProjectTemplateId;

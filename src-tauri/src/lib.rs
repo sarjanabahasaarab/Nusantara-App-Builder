@@ -1,4 +1,12 @@
-// Nusantara App Builder - Tauri 2.x Application Builder
+// Nusantara App Builder - Tauri 2.x Application Architecture (Phase 10)
+// Modular Rust subsystems: security, filesystem, android, build, release, plugins, commands.
+
+pub mod security;
+pub mod filesystem;
+pub mod android;
+pub mod build;
+pub mod release;
+pub mod plugins;
 pub mod commands;
 
 pub fn run() {

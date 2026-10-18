@@ -2,7 +2,36 @@
 
 Seluruh perubahan penting pada proyek ini dicatat dalam berkas ini.
 
-## [0.7.0-alpha] - 2026-10-15
+## [1.0.0] - 2026-10-17
+### Phase 10: Open Source Professional Release & Ecosystem
+
+#### Ditambahkan / Added
+- **Final Modular Architecture**: Pembagian subsistem mandiri di Tauri & Rust (`commands/`, `build/`, `android/`, `release/`, `filesystem/`, `security/`, `plugins/`).
+- **Plugin Engine & Security Sandbox**: Sistem ekstensi modular dengan perizinan granular (*Allow/Deny*, default *Deny*), isolasi proses OS, dan `PluginAPIContext` yang stabil.
+- **Component SDK & Visual Component Registry**: Pendaftaran komponen kustom pengembang (`Basic`, `Advanced`, `Plugin-contributed`) dengan properti reaktif dan generator XML Android.
+- **Theme Engine & Design Tokens**: Manajer tema kustom (`Light`, `Dark`, `Emerald`) dengan token desain untuk warna, tipografi, grid perancang, serta fitur ekspor/impor berkas JSON tema.
+- **10 Templat Produksi**: Blank App, Website App, Business App, School App, News App, Food App, Store App, Portfolio App, API App, dan SQLite App.
+- **Layanan Impor Proyek Aman**: Impor berkas cadangan Nusantara JSON dan parser cerdas proyek Android native (validasi `AndroidManifest.xml`, namespace `build.gradle`, SDK level, pencegahan path traversal).
+- **Test Suite Lengkap**: 14 test suite dengan 175 pengujian unit dan integrasi otomatis yang lulus 100%.
+
+## [0.9.0-alpha] - 2026-10-16
+### Phase 9: AdMob & Monetization Manager
+
+#### Ditambahkan / Added
+- **AdMob Center**: Halaman terpusat untuk konfigurasi App ID (`ca-app-pub-XXXX~YYYY`), Ad Units, penempatan visual, dan kebijakan privasi.
+- **Dukungan 4 Jenis Iklan**: Banner (Top/Bottom/Adaptive), Interstitial (dengan pembatas frekuensi aman), Rewarded (berbasis callback keberhasilan SDK), dan Native Ads (Card/Grid template).
+- **Mode Iklan Uji Resmi Google**: Satu klik beralih antara Test IDs Google dan Mode Produksi dengan simulator interaktif langsung di IDE.
+- **Consent & UMP Privacy**: Konfigurasi User Messaging Platform (UMP) SDK untuk kepatuhan regulasi privasi Google Play.
+- **Monetization Diagnostics**: Audit pra-rilis mendeteksi format ID salah, ketergantungan Google Play Services Gradle, dan meta-data Manifest.
+
+## [0.8.0-alpha] - 2026-10-16
+### Phase 8: Release Center & Google Play Store Ready
+
+#### Ditambahkan / Added
+- **Release Center Workspace**: Wisaya 8-langkah rilis aplikasi dari konfigurasi versi hingga ekspor biner bertanda tangan.
+- **Keystore Manager Resmi**: Pembuatan sertifikat RSA 2048-bit JKS/PKCS12 dengan skema penandatanganan V1 (JAR) dan V2 (Full APK).
+- **Google Play Store Checklist**: Audit otomatis 10 kriteria peluncuran (Target SDK 34+, 64-bit binaries, App Bundle AAB, privacy policy, icon 512x512).
+- **Metadata & Asset Packager**: Generator berkas `play-store-metadata.json` dan pelacak riwayat rilis.
 ### Phase 7: Professional Android Build Engine & Toolchain
 
 #### Ditambahkan / Added

@@ -1,0 +1,13 @@
+{
+  "id": "example.plugin",
+  "name": "Example Plugin",
+  "version": "1.0.0",
+  "apiVersion": "1",
+  "author": "Developer",
+  "description": "Example Nusantara App Builder plugin",
+  "category": "component",
+  "permissions": [
+    "project.read",
+    "project.write"
+  ]
+}

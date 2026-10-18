@@ -1,0 +1,40 @@
+{
+  "name": "Nusantara Dark",
+  "version": "1.0.0",
+  "colors": {
+    "background": "#09090b",
+    "surface": "#18181b",
+    "surfaceHover": "#27272a",
+    "border": "#27272a",
+    "borderFocus": "#3b82f6",
+    "textPrimary": "#f4f4f5",
+    "textSecondary": "#a1a1aa",
+    "textMuted": "#71717a",
+    "accent": "#2563eb",
+    "accentHover": "#1d4ed8",
+    "accentText": "#ffffff",
+    "sidebarBg": "#18181b",
+    "toolbarBg": "#18181b",
+    "canvasBg": "#09090b",
+    "editorBg": "#18181b"
+  },
+  "typography": {
+    "fontFamilySans": "Plus Jakarta Sans, sans-serif",
+    "fontFamilyMono": "JetBrains Mono, monospace",
+    "baseSize": "14px",
+    "headingWeight": "700"
+  },
+  "spacing": {
+    "unit": 4,
+    "borderRadiusBase": "8px",
+    "borderRadiusLg": "12px",
+    "sidebarWidth": "240px"
+  },
+  "components": {
+    "buttonRadius": "8px",
+    "cardShadow": "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+    "designerGridVisible": true,
+    "designerGridColor": "#27272a",
+    "editorLineNumbers": true
+  }
+}

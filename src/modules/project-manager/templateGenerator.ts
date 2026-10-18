@@ -24,14 +24,27 @@ import {
 import { generateEmptyAndroidProject } from './templates/emptyProjectTemplate';
 import { generateBasicActivityProject } from './templates/basicActivityTemplate';
 import { generateWebViewStarterProject } from './templates/webViewStarterTemplate';
+import { PRODUCTION_TEMPLATES } from '../templates/templateCatalogue';
 
 export const AVAILABLE_TEMPLATES: ProjectTemplate[] = [
+  ...PRODUCTION_TEMPLATES.map((t) => ({
+    id: t.id as any,
+    name: t.name,
+    nameId: t.nameId,
+    description: t.description,
+    descriptionId: t.descriptionId,
+    minSdk: t.minSdk,
+    targetSdk: t.targetSdk,
+    compileSdk: 34,
+    features: t.features,
+    featuresId: t.featuresId,
+  })),
   {
     id: 'empty-android',
-    name: 'Empty Android Project',
-    nameId: 'Empty Android Project (Dasar)',
+    name: 'Empty Android Project (Classic)',
+    nameId: 'Empty Android Project (Klasik)',
     description: 'Clean minimal Android Gradle project with Kotlin, AndroidX, and a blank MainActivity.',
-    descriptionId: 'Struktur Android Gradle murni dengan Kotlin, AndroidX, dan Activity kosong tanpa dependensi berlebih.',
+    descriptionId: 'Struktur Android Gradle murni dengan Kotlin, AndroidX, dan Activity kosong.',
     minSdk: 26,
     targetSdk: 34,
     compileSdk: 34,
@@ -40,10 +53,10 @@ export const AVAILABLE_TEMPLATES: ProjectTemplate[] = [
   },
   {
     id: 'basic-activity',
-    name: 'Basic Activity (Material 3)',
-    nameId: 'Basic Activity (Material 3 & Aksi Interaktif)',
+    name: 'Basic Activity (Material 3 FAB)',
+    nameId: 'Basic Activity (Material 3 & FAB)',
     description: 'Complete with Material 3 TopAppBar, Floating Action Button, and ViewModel architecture pattern.',
-    descriptionId: 'Dilengkapi Material 3 TopAppBar, Floating Action Button, tombol aksi responsif, dan arsitektur ViewModel.',
+    descriptionId: 'Dilengkapi Material 3 TopAppBar, Floating Action Button, dan arsitektur ViewModel.',
     minSdk: 26,
     targetSdk: 34,
     compileSdk: 34,
@@ -99,14 +112,12 @@ export function generateProjectFiles(input: CreateProjectInput): ProjectFile[] {
 
   // 3. Template-specific files
   let templateFiles: ProjectFile[] = [];
-  if (template === 'empty-android') {
+  if (template === 'empty-android' || template === 'blank-app') {
     templateFiles = generateEmptyAndroidProject(input);
-  } else if (template === 'basic-activity') {
-    templateFiles = generateBasicActivityProject(input);
-  } else if (template === 'webview-starter') {
+  } else if (template === 'webview-starter' || template === 'website-app') {
     templateFiles = generateWebViewStarterProject(input);
   } else {
-    templateFiles = generateEmptyAndroidProject(input);
+    templateFiles = generateBasicActivityProject(input);
   }
 
   // 4. README.md

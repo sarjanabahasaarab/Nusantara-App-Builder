@@ -1,0 +1,16 @@
+{
+  "id": "website-app",
+  "name": "Website App (WebView)",
+  "nameId": "Aplikasi Website (WebView)",
+  "version": "1.0.0",
+  "category": "web",
+  "minSdk": 24,
+  "targetSdk": 34,
+  "hasWebView": true,
+  "hasAdMob": true,
+  "features": [
+    "Hardware Accelerated WebView",
+    "AdMob Banner Container",
+    "Offline Splash Screen"
+  ]
+}
